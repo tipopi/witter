@@ -14,15 +14,15 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto" [ngSwitch]="isLogin">
         <li *ngSwitchCase="true" class="active">
-          <a href="#pablo" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="material-icons">account_circle</i>Boss_pi
           </a>
         </li>
         <li *ngSwitchCase="false" class="active">
-          <a href="#pablo" class="nav-link">登录</a>
+          <app-login></app-login>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<app-login></app-login>
+
