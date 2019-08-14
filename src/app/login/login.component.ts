@@ -1,11 +1,11 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {LoginService} from 'login.service';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
-  providers:[]
+  providers:[LoginService]
 })
 export class LoginComponent implements OnInit{
   username = '';
@@ -13,7 +13,10 @@ export class LoginComponent implements OnInit{
   ngOnInit(): void {
   }
   onSubmit(formValue) {
-    console.log(this.username+this.password);
+    if (this.username==''||this.password=='') {
+      return;
+    }
+    this.service.addUser(this.username,this.password).subscribe(data=>console.log(data));
   }
   isVisible = false;
 
