@@ -1,5 +1,6 @@
-import { Component, OnInit,Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {LoginService} from './login.service';
+import {Result} from '../model/result'
 
 @Component({
   selector: 'app-login',
@@ -8,15 +9,30 @@ import {LoginService} from './login.service';
   providers:[LoginService]
 })
 export class LoginComponent implements OnInit{
-  username = '';
-  password = '';
+  username: string = '';
+  password :string= '';
+  erro: boolean=false;
+  msg: string='';
+  @Output() login: EventEmitter<number> = new EventEmitter<number>();
   ngOnInit(): void {
   }
   onSubmit(formValue) {
     if (this.username==''||this.password=='') {
       return;
     }
-    this.service.addUser(this.username,this.password).subscribe(data=>console.log(data));
+    this.service.login(this.username,this.password).subscribe(da=>
+    {
+      if(da.meta.code==1){
+        this.isVisible = false;
+        this.login.emit(null);
+      }
+      else {
+        this.erro=true;
+        this.msg=da.meta.msg;
+      }
+    });
+
+
   }
   isVisible = false;
 
@@ -27,12 +43,10 @@ export class LoginComponent implements OnInit{
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 

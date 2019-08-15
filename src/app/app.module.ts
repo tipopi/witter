@@ -12,22 +12,25 @@ import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import {HeadComponent} from './head/head.component';
 import {LoginComponent} from './login/login.component';
+import {BodyModule} from './body/body.module'
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
     HeadComponent,
-    LoginComponent
+    LoginComponent,
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     IconsProviderModule,
     NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BodyModule,
+    AppRoutingModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

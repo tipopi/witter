@@ -1,6 +1,17 @@
 <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Show Modal</span></button>
 <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
+    <div *ngIf="erro" class="alert alert-danger">
+      <div class="container">
+        <div class="alert-icon">
+          <i class="material-icons">error_outline</i>
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"><i class="material-icons">clear</i></span>
+        </button>
+        <b>Error Alert:</b> {{msg}}
+      </div>
+    </div>
     <fieldset ngModelGroup="login">
       <input type="text"
              name="username"
