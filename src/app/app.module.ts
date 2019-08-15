@@ -13,6 +13,7 @@ import zh from '@angular/common/locales/zh';
 import {HeadComponent} from './head/head.component';
 import {LoginComponent} from './login/login.component';
 import {BodyModule} from './body/body.module'
+import {PanelComponent} from "./body/panel/panel.component";
 registerLocaleData(zh);
 
 @NgModule({
@@ -20,7 +21,7 @@ registerLocaleData(zh);
     AppComponent,
     HeadComponent,
     LoginComponent,
-
+    PanelComponent
   ],
   imports: [
     BrowserModule,
