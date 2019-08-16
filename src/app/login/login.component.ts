@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit{
     if (this.username==''||this.password=='') {
       return;
     }
-    this.service.login(this.username,this.password).subscribe(da=>
+    this.service.login(this.username,this.password).subscribe((da: any)=>
     {
       if(da.meta.code==1){
         this.isVisible = false;
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit{
       }
       else {
         this.erro=true;
-        this.msg=da.meta.msg;
+        this.msg=da.meta.message;
       }
     });
 

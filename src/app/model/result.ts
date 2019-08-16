@@ -1,7 +1,7 @@
 export interface Result<T>{
   meta: {
     code: number;
-    msg: string;
+    message: string;
     token: string;
   };
   data: T;

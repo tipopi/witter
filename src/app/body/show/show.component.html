@@ -1,6 +1,9 @@
-
-<!--<router-outlet></router-outlet>-->
-<p>show works!</p>
-<!--<a [routerLink]="['/list']" routerLinkActive="active">列表</a>-->
-<!--<br>-->
-<!--<a [routerLink]="['/detail','1']" routerLinkActive="active">详情</a>-->
+<nz-date-picker
+  nzShowTime
+  nzFormat="yyyy-MM-dd HH:mm:ss"
+  nzPlaceHolder="Select Time"
+  (ngModelChange)="onChange($event)"
+  (nzOnOk)="onOk($event)"
+></nz-date-picker>
+<app-list [tag]="tag" [date]="date" *ngIf="refresh"></app-list>
+<app-tags></app-tags>
