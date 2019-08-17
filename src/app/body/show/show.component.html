@@ -1,9 +1,16 @@
-<nz-date-picker
-  nzShowTime
-  nzFormat="yyyy-MM-dd HH:mm:ss"
-  nzPlaceHolder="Select Time"
-  (ngModelChange)="onChange($event)"
-  (nzOnOk)="onOk($event)"
-></nz-date-picker>
-<app-list [tag]="tag" [date]="date" *ngIf="refresh"></app-list>
-<app-tags></app-tags>
+<div class="flex">
+  <div>
+    <nz-date-picker
+      nzShowTime
+      nzFormat="yyyy-MM-dd HH:mm:ss"
+      nzPlaceHolder="Select Time"
+      (ngModelChange)="onChange($event)"
+      (nzOnOk)="onChange($event)"
+    ></nz-date-picker>
+
+
+    <app-list [tag]="tag" [date]="date" *ngIf="refresh"
+              (loadNext)="onLoadNext()" ></app-list>
+  </div>
+  <app-tags [type]="0" (out)="onTag($event)"></app-tags>
+</div>

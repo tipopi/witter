@@ -1,1 +1,6 @@
-<p>tags works!</p>
+<div>
+  <p>标签</p>
+  <button  class="btn btn-rose btn-round" (click)="outTag('all')">all</button>
+  <button class="btn btn-success btn-round" (click)="outTag(id.value)" *ngFor="let tag of tags">
+    <input type="hidden" #id value="{{tag.id}}">{{tag.name}} {{tag.tagCount}}</button>
+</div>

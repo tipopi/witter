@@ -1,5 +1,12 @@
-<a [routerLink]="['./tweet']" routerLinkActive="active">推文</a>
-<br>
-<a [routerLink]="['./blog']" routerLinkActive="active">文章</a>
-<router-outlet></router-outlet>
 
+<div nz-row nzType="flex" nzJustify="start" nzAlign="top">
+      <div nz-col nzSpan="4">
+        <button class="btn btn-info " [routerLink]="['./tweet']" routerLinkActive="active">推文</button>
+        <br>
+        <button class="btn btn-primary "  [routerLink]="['./blog']" routerLinkActive="active">文章</button>
+      </div>
+  <div  nz-col nzSpan="4">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

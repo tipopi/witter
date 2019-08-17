@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+
 
 @Component({
   selector: 'app-show',
@@ -6,23 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./show.component.css']
 })
 export class ShowComponent implements OnInit {
-  tag:string ='all';
-  refresh:boolean=true;
-  date:Date=new Date();
+  tag: string ='all';
+  refresh: boolean=true;
+  date: Date=new Date();
 
-  constructor() { }
+  constructor( private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
   onChange(result: Date): void {
     this.date=result;
-    this.refresh=false;
-    this.refresh=true;
+    this.onLoadNext();
+  }
+  onLoadNext() {
+    this.refresh = false;
+    this.cdr.detectChanges();
+    this.refresh = true;
+    this.cdr.detectChanges();
+  }
+  onTag(id){
+    this.tag=id;
+    this.onLoadNext();
   }
 
-  onOk(result: Date): void {
-    this.date=result;
-    this.refresh=false;
-    this.refresh=true;
-  }
 }

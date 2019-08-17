@@ -5,7 +5,7 @@ import {ListService} from './list.service';
 
 
 
-let cont=0;
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -17,14 +17,17 @@ export class ListComponent implements OnInit{
   @Input() tag :string;
   @Input() date :Date;
   ds ;
-
+  img1: string='../../../assets/img/pi.jpg';
+  img2: string='../../../assets/img/hai.jfif';
+  detail: boolean=false;
 
   constructor(private service: ListService) {
   }
   ngOnInit(): void {
-    cont++;
-    console.log(cont);
     this.ds = new MyDataSource(this.service,this.tag,this.date);
+  }
+  addPower(id,power){
+    this.service.addPower(id,power).subscribe();
   }
 
 
@@ -38,6 +41,7 @@ export class MyDataSource extends DataSource<string | undefined>  {
   private dataStream = new BehaviorSubject<any[]>(this.cachedData);
   private subscription = new Subscription();
   private date:Date;
+  private continues: boolean=true;
   constructor(private service:ListService,private tag,date) {
     super();
     this.date=date;
@@ -67,34 +71,30 @@ export class MyDataSource extends DataSource<string | undefined>  {
     return Math.floor(index / this.pageSize);
   }
 
-  checkTime(date){
-    this.date=date;
-  }
-
   private fetchPage(page: number): void {
     if (this.fetchedPages.has(page)) {
       return;
     }
     this.fetchedPages.add(page);
-
-    if(this.tag=='all'){
+    if(!this.continues){
+      return;
+    }
       this.service
-        .findAll(this.date)
+        .findAll(this.tag ,this.date)
         .subscribe((res: any) => {
-          this.cachedData.splice(page * this.pageSize, this.pageSize, ...res.data);
           let n=res.data.length;
+          if(n==0){
+            this.continues=false;
+            return;
+          }
+          this.cachedData.splice(page * this.pageSize, this.pageSize, ...res.data);
           let s=res.data[n-1].createTime.toString();
-          if(n!=11){
-            this.tag='none';
+          if(n!=this.pageSize){
+            this.continues=false;
           }
           this.date=new Date(s);
           this.dataStream.next(this.cachedData);
         });
-    }
-    else if(this.tag=='none'){
-      return;
-    }
-
   }
 
 }
