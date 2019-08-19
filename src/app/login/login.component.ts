@@ -13,11 +13,15 @@ export class LoginComponent implements OnInit{
   password :string= '';
   erro: boolean=false;
   msg: string='';
+  isConfirmLoading: boolean=false;
+  isVisible = false;
   @Output() login: EventEmitter<number> = new EventEmitter<number>();
   ngOnInit(): void {
   }
   onSubmit(formValue) {
     if (this.username==''||this.password=='') {
+      this.erro=true;
+      this.msg='账号密码不能为空';
       return;
     }
     this.service.login(this.username,this.password).subscribe((da: any)=>
@@ -34,7 +38,6 @@ export class LoginComponent implements OnInit{
 
 
   }
-  isVisible = false;
 
   constructor(private service:LoginService) {}
 
@@ -42,9 +45,6 @@ export class LoginComponent implements OnInit{
     this.isVisible = true;
   }
 
-  handleOk(): void {
-    this.isVisible = false;
-  }
 
   handleCancel(): void {
     this.isVisible = false;

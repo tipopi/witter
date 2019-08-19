@@ -6,11 +6,12 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['./head.component.css']
 })
 export class HeadComponent implements OnInit {
-  @Input() isLogin:boolean;
+  @Input() isLogin: boolean;
 
   constructor() { }
 
   ngOnInit() {
   }
+
 
 }

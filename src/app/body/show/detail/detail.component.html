@@ -1,0 +1,20 @@
+
+<button (click)="showModal()" class="btn btn-primary btn-round">评论
+</button>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="userName+'的推文'"  (nzOnCancel)="handleCancel()">
+  <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>&nbsp;:&nbsp;&nbsp;{{text}}</p><br>
+  <p>{{createTime}}</p>
+  <p>--------------------------</p>
+  <span *ngIf="coms.length!=0">
+     <div  *ngFor="let item of coms">
+       <p><nz-avatar nzIcon="user" [nzSrc]="item.userId== 0?img0:img1"></nz-avatar> {{item.userId==0?'痞老板':'水友'}}</p>
+       <p>{{item.text}}</p>
+       <p>{{item.createTime}}</p>
+     </div>
+  </span>
+  <textarea rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  <button (click)="addCom()">发表</button>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="handleCancel()">关闭</button>
+  </div>
+</nz-modal>

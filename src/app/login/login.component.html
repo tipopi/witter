@@ -1,5 +1,5 @@
-<button nz-button [nzType]="'primary'" (click)="showModal()"><span>Show Modal</span></button>
-<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<button nz-button [nzType]="'primary'" (click)="showModal()"><span>登陆</span></button>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="管理员登陆"  (nzOnCancel)="handleCancel()">
   <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
     <div *ngIf="erro" class="alert alert-danger">
       <div class="container">
@@ -29,7 +29,11 @@
              required
       />
       <div *ngIf="passwordRef.errors?.required">this is required</div>
-      <button type="submit">Submit</button>
+      <button type="submit" >Submit</button>
     </fieldset>
   </form>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="handleCancel()">关闭</button>
+  </div>
 </nz-modal>
+

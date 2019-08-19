@@ -8,21 +8,24 @@ import {Tag} from "../../model/tag";
   styleUrls: ['./tags.component.css']
 })
 export class TagsComponent implements OnInit {
-  tags: Tag[] =[];
-  @Input() type:number;
+  tags: Tag[] = [];
+  @Input() type: number;
   @Output() out: EventEmitter<number> = new EventEmitter<number>();
-  constructor(private service:TagsService) { }
+
+  constructor(private service: TagsService) {
+  }
 
   ngOnInit() {
-    this.service.findCount(this.type).subscribe((da: any)=>{
-      if(da.data.length!=0){
-        da.data.forEach(item=>{
+    this.service.findCount(this.type).subscribe((da: any) => {
+      if (da.data.length != 0) {
+        da.data.forEach(item => {
           this.tags.push(item);
-        })
+        });
       }
     });
   }
-  outTag(id){
+
+  outTag(id) {
     this.out.emit(id.toString());
   }
 

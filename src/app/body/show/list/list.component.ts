@@ -2,7 +2,7 @@ import {Component, ChangeDetectionStrategy, Input, OnInit} from '@angular/core';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import {Observable, Subscription, BehaviorSubject} from "rxjs";
 import {ListService} from './list.service';
-
+import {Img} from "../../../model/img";
 
 
 
@@ -14,11 +14,11 @@ import {ListService} from './list.service';
   providers:[ListService]
 })
 export class ListComponent implements OnInit{
-  @Input() tag :string;
-  @Input() date :Date;
+  @Input() tag: string;
+  @Input() date: Date;
   ds ;
-  img1: string='../../../assets/img/pi.jpg';
-  img2: string='../../../assets/img/hai.jfif';
+  img0: string=Img.img0;
+  img1: string=Img.img1;
   detail: boolean=false;
 
   constructor(private service: ListService) {
