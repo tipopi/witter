@@ -19,7 +19,6 @@ export class ListComponent implements OnInit{
   ds ;
   img0: string=Img.img0;
   img1: string=Img.img1;
-  detail: boolean=false;
 
   constructor(private service: ListService) {
   }
@@ -34,17 +33,15 @@ export class ListComponent implements OnInit{
 }
 export class MyDataSource extends DataSource<string | undefined>  {
 
-  private length = 100000;
-  private pageSize = 12;
+  private length = 10000;
+  private pageSize = 10;
   private cachedData = Array.from<any>({ length: this.length });
   private fetchedPages = new Set<number>();
   private dataStream = new BehaviorSubject<any[]>(this.cachedData);
   private subscription = new Subscription();
-  private date:Date;
   private continues: boolean=true;
-  constructor(private service:ListService,private tag,date) {
+  constructor(private service:ListService,private tag,private date) {
     super();
-    this.date=date;
   }
 
 
@@ -55,6 +52,8 @@ export class MyDataSource extends DataSource<string | undefined>  {
       collectionViewer.viewChange.subscribe(range => {
         const startPage = this.getPageForIndex(range.start);
         const endPage = this.getPageForIndex(range.end - 1);
+        console.log(startPage);
+        console.log(endPage);
         for (let i = startPage; i <= endPage; i++) {
           this.fetchPage(i);
         }
@@ -66,9 +65,9 @@ export class MyDataSource extends DataSource<string | undefined>  {
   disconnect(): void {
     this.subscription.unsubscribe();
   }
-
+  //列表高度*2这里分母就*2，其他倍数同理
   private getPageForIndex(index: number): number {
-    return Math.floor(index / this.pageSize);
+    return Math.floor(index / (this.pageSize*2));
   }
 
   private fetchPage(page: number): void {

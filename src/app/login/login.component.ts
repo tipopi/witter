@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {LoginService} from './login.service';
 import {Result} from '../model/result'
+import {LocalStorage} from "../local.storage";
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit{
     {
       if(da.meta.code==1){
         this.isVisible = false;
+        this.local.set('userId','0');
         this.login.emit(null);
       }
       else {
@@ -39,7 +41,7 @@ export class LoginComponent implements OnInit{
 
   }
 
-  constructor(private service:LoginService) {}
+  constructor(private service:LoginService,private local: LocalStorage) {}
 
   showModal(): void {
     this.isVisible = true;

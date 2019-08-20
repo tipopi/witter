@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import {BodyRoutingModule} from './body-routing.module';
 import {TagsService} from "./tags/tags.service";
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
 
   imports: [
     CommonModule,

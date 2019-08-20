@@ -22,6 +22,8 @@ import {TagsComponent} from "./body/tags/tags.component";
 import {ShowComponent} from "./body/show/show.component";
 import {BlogComponent} from "./body/blog/blog.component";
 import {DetailComponent} from "./body/show/detail/detail.component";
+import {LocalStorage} from "./local.storage";
+import {TweetAddComponent} from "./body/show/tweet-add/tweet-add.component";
 registerLocaleData(zh);
 
 @NgModule({
@@ -34,7 +36,8 @@ registerLocaleData(zh);
     TagsComponent,
     ShowComponent,
     BlogComponent,
-    DetailComponent
+    DetailComponent,
+    TweetAddComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ registerLocaleData(zh);
     BodyModule,
     AppRoutingModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN },LocalStorage],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

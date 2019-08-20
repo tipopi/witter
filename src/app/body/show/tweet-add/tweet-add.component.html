@@ -1,0 +1,14 @@
+<input (click)="showModal()" nz-input placeholder="今天有什么糟心事嘛" nzSize="default" />
+<nz-modal *ngIf="isVisible" [(nzVisible)]="isVisible" [nzTitle]="userName+'有什么废话想说嘛'"  (nzOnCancel)="handleCancel()">
+  <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>&nbsp;:&nbsp;&nbsp;
+    <textarea rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  </p><br>
+  <p>
+    <input [(ngModel)]="inputTag" nz-input placeholder="标签不能超过10个字符" nzSize="small" />
+    <button (click)="addTag()">添加</button>
+  </p>
+  <li *ngFor="let item of tags">
+    {{item.name}}
+  </li>
+  <button (click)="addTweet()">发推</button>
+</nz-modal>

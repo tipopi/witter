@@ -4,7 +4,7 @@ import {Url} from "../../../model/url";
 
 @Injectable()
 export class DetailService {
-  private url_list = Url.url + '/comment/findList'
+  private url_list = Url.url + '/comment/find'
   private url_add = Url.url + '/comment/add';
 
   constructor(private http: HttpClient) {

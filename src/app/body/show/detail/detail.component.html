@@ -1,20 +1,23 @@
 
 <button (click)="showModal()" class="btn btn-primary btn-round">评论
 </button>
-<nz-modal [(nzVisible)]="isVisible" [nzTitle]="userName+'的推文'"  (nzOnCancel)="handleCancel()">
+<nz-modal *ngIf="isVisible" [(nzVisible)]="isVisible" [nzTitle]="userName+'的推文'"  (nzOnCancel)="handleCancel()">
   <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>&nbsp;:&nbsp;&nbsp;{{text}}</p><br>
   <p>{{createTime}}</p>
-  <p>--------------------------</p>
-  <span *ngIf="coms.length!=0">
-     <div  *ngFor="let item of coms">
+  <!--<nz-divider *ngIf="coms.length!=0" nzText="文明评论区"></nz-divider>-->
+  <nz-divider *ngIf="isVisible" nzText="文明评论区"></nz-divider>
+  <!--<span *ngIf="isVisible">-->
+     <li  *ngFor="let item of coms">
        <p><nz-avatar nzIcon="user" [nzSrc]="item.userId== 0?img0:img1"></nz-avatar> {{item.userId==0?'痞老板':'水友'}}</p>
        <p>{{item.text}}</p>
        <p>{{item.createTime}}</p>
-     </div>
-  </span>
+       <nz-divider></nz-divider>
+     </li>
+    <nz-divider></nz-divider>
+  <!--</span>-->
   <textarea rows="4" nz-input [(ngModel)]="inputValue"></textarea>
   <button (click)="addCom()">发表</button>
   <div *nzModalFooter>
-    <button nz-button nzType="primary" (click)="handleCancel()">关闭</button>
+    <button nz-button nzTpype="primary" (click)="handleCancel()">关闭</button>
   </div>
 </nz-modal>
