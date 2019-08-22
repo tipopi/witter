@@ -29,8 +29,8 @@ registerLocaleData(zh);
 @NgModule({
   declarations: [
     AppComponent,
-    HeadComponent,
     LoginComponent,
+    HeadComponent,
     PanelComponent,
     ListComponent,
     TagsComponent,

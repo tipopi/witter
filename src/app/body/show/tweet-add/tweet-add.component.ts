@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {Img} from "../../../model/img";
 import {TweetAddService} from "./tweet-add.service";
 import {LocalStorage} from "../../../local.storage";
 import {Tag} from "../../../model/tag";
+import {forEachComment} from "tslint";
 @Component({
   selector: 'app-tweet-add',
   templateUrl: './tweet-add.component.html',
@@ -16,6 +17,8 @@ export class TweetAddComponent implements OnInit {
   inputValue: string;
   inputTag: string;
   tags: Tag[]=[];
+  @Output() fresh: EventEmitter<null> = new EventEmitter<null>();
+  erro: string='';
   constructor(private servic: TweetAddService,private local: LocalStorage) { }
 
   ngOnInit() {
@@ -23,19 +26,47 @@ export class TweetAddComponent implements OnInit {
   }
 
   addTweet(){
-    this.servic.addTweet(this.local.get('userId'),this.inputValue).subscribe((da: any)=>{
+    if(this.inputValue.length>255){
+      this.erro='字符不能超过255';
+      return;
+    }else if(this.inputValue.length==0){
+      this.erro='不要发空气';
+      return;
+    }
+    let string = this.inputValue.replace(/\r\n/g,"<br>");
+    string = string.replace(/\n/g,"<br/>");
+    string = string.replace(/\s/g,"&nbsp;");
+    this.servic.addTweet(this.local.get('userId'),string).subscribe((da: any)=>{
       if(da.meta.code=='1'&&this.tags.length!=0){
         let id=da.data;
         let tags=[];
         this.tags.forEach(item=>tags.push(item.id));
-        this.servic.addMap(id,tags)._subscribe((da: any)=>{
+        this.servic.addMap(id,tags).subscribe((da: any)=>{
+          if(da.meta.code=='1'){
+           this.fresh.emit(null);
+          }
         });
       }
       this.isVisible=false;
-    });
+    }
+    );
   }
-  //TODO 校验
+
   addTag(){
+    if(this.inputTag.length>10){
+      this.erro='字符不能超过10';
+      return;
+    }else if(this.tags.length>=3){
+      this.erro='最多加三个标签';
+      return;
+    }
+    for(let item of this.tags){
+      if(item.name==this.inputTag){
+        this.erro='不要重复加标签';
+        return;
+      }
+    }
+
     this.servic.addTag(this.inputTag).subscribe((da: any)=>{
       if(da.meta.code=='1'){
         let id=da.data.id;
@@ -56,6 +87,7 @@ export class TweetAddComponent implements OnInit {
     this.tags=[];
     this.inputValue='';
     this.inputTag='';
+    this.erro='';
     if (this.local.get('userId') == '0') {
       this.userName = '痞老板';
       this.img = Img.img0;

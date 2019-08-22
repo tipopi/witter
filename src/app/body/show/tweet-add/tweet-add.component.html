@@ -1,14 +1,33 @@
-<input (click)="showModal()" nz-input placeholder="今天有什么糟心事嘛" nzSize="default" />
-<nz-modal *ngIf="isVisible" [(nzVisible)]="isVisible" [nzTitle]="userName+'有什么废话想说嘛'"  (nzOnCancel)="handleCancel()">
-  <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>&nbsp;:&nbsp;&nbsp;
-    <textarea rows="4" nz-input [(ngModel)]="inputValue"></textarea>
-  </p><br>
-  <p>
-    <input [(ngModel)]="inputTag" nz-input placeholder="标签不能超过10个字符" nzSize="small" />
-    <button (click)="addTag()">添加</button>
-  </p>
+<input class="nz" (click)="showModal()" nz-input placeholder="今天有什么破事嘛" nzSize="default" />
+<nz-modal  [(nzVisible)]="isVisible" [nzTitle]="'有什么废话想说嘛'"  (nzOnCancel)="handleCancel()">
+  <div *ngIf="erro" class="alert alert-danger">
+    <div class="container">
+      <div class="alert-icon">
+        <i class="material-icons">error_outline</i>
+      </div>
+      <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"><i class="material-icons">clear</i></span>
+      </button>
+      <b>Error Alert:</b> {{erro}}
+    </div>
+  </div>
+
+  <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>{{userName}}&nbsp;:</p>
+  <textarea wrap="hard"   rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  <nz-divider></nz-divider>
+
+  <div class="col-lg-5 col-sm-4">
+    <div class="form-group has-default">
+      <input type="text" class="form-control" [(ngModel)]="inputTag" placeholder="标签不能超过10个字符"  />
+    </div>
+  </div>
+    <button class="btn btn-rose btn-round" (click)="addTag()">添加</button>
   <li *ngFor="let item of tags">
     {{item.name}}
   </li>
-  <button (click)="addTweet()">发推</button>
+
+  <div *nzModalFooter>
+    <button class="btn btn-primary btn-round btn-sm" (click)="addTweet()"><i class="material-icons">face</i> 发推</button>
+    <button class="btn btn-info btn-round btn-sm" (click)="handleCancel()">关闭</button>
+  </div>
 </nz-modal>

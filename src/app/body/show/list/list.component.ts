@@ -1,8 +1,9 @@
-import {Component, ChangeDetectionStrategy, Input, OnInit} from '@angular/core';
+import {Component, ChangeDetectionStrategy, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import {Observable, Subscription, BehaviorSubject} from "rxjs";
 import {ListService} from './list.service';
 import {Img} from "../../../model/img";
+import {LocalStorage} from "../../../local.storage";
 
 
 
@@ -16,17 +17,27 @@ import {Img} from "../../../model/img";
 export class ListComponent implements OnInit{
   @Input() tag: string;
   @Input() date: Date;
-  ds ;
+  ds;
   img0: string=Img.img0;
   img1: string=Img.img1;
-
-  constructor(private service: ListService) {
+  dele: boolean;
+  @Output() fresh: EventEmitter<null> = new EventEmitter<null>();
+  constructor(private service: ListService,private local: LocalStorage) {
   }
   ngOnInit(): void {
+    this.dele = this.local.get('userId') == '0';
     this.ds = new MyDataSource(this.service,this.tag,this.date);
   }
   addPower(id,power){
     this.service.addPower(id,power).subscribe();
+  }
+  delete(id){
+    this.service.deleteTweet(id,this.local.get('token')).subscribe((da: any)=>{
+      if(da.meta.code==1){
+        this.fresh.emit(null);
+        this.local.set('token',da.meta.token);
+      }
+    })
   }
 
 
@@ -52,8 +63,6 @@ export class MyDataSource extends DataSource<string | undefined>  {
       collectionViewer.viewChange.subscribe(range => {
         const startPage = this.getPageForIndex(range.start);
         const endPage = this.getPageForIndex(range.end - 1);
-        console.log(startPage);
-        console.log(endPage);
         for (let i = startPage; i <= endPage; i++) {
           this.fetchPage(i);
         }
@@ -87,7 +96,7 @@ export class MyDataSource extends DataSource<string | undefined>  {
             return;
           }
           this.cachedData.splice(page * this.pageSize, this.pageSize, ...res.data);
-          let s=res.data[n-1].createTime.toString();
+          let s=res.data[n-1].createTime;
           if(n!=this.pageSize){
             this.continues=false;
           }

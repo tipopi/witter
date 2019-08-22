@@ -1,39 +1,57 @@
-<button nz-button [nzType]="'primary'" (click)="showModal()"><span>登陆</span></button>
-<nz-modal [(nzVisible)]="isVisible" nzTitle="管理员登陆"  (nzOnCancel)="handleCancel()">
+<a (click)="showModal()"> <i class="material-icons">account_circle</i></a>
+<nz-modal [nzWidth]="400" [(nzVisible)]="isVisible" nzTitle="管理员登陆"  (nzOnCancel)="handleCancel()">
   <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
     <div *ngIf="erro" class="alert alert-danger">
       <div class="container">
         <div class="alert-icon">
           <i class="material-icons">error_outline</i>
         </div>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true"><i class="material-icons">clear</i></span>
         </button>
         <b>Error Alert:</b> {{msg}}
       </div>
     </div>
+
     <fieldset ngModelGroup="login">
-      <input type="text"
-             name="username"
-             [(ngModel)]="username"
-             #usernameRef="ngModel"
-             required
-             minlength="3"
-      />
-      <div *ngIf="usernameRef.errors?.required">this is required</div>
-      <div *ngIf="usernameRef.errors?.minlength">should be at least 3 charactors</div>
-      <input type="password"
-             name="password"
-             [(ngModel)]="password"
-             #passwordRef="ngModel"
-             required
-      />
-      <div *ngIf="passwordRef.errors?.required">this is required</div>
-      <button type="submit" >Submit</button>
+      <div class="input-group col-lg-10 col-sm-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+           <i class="material-icons">face</i>
+          </span>
+        </div>
+        <input class="form-control"
+               type="text"
+               name="username"
+               [(ngModel)]="username"
+               #usernameRef="ngModel"
+               required
+               minlength="3"
+        />
+      </div>
+      <div class="input-group col-lg-10 col-sm-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="material-icons">lock_outline</i>
+          </span>
+        </div>
+        <input class="form-control"
+               type="password"
+               name="password"
+               [(ngModel)]="password"
+               #passwordRef="ngModel"
+               required
+        />
+      </div>
+        <div style="text-align:center;">
+        <button class="btn btn-danger " type="submit" >登录</button>
+      </div>
+
     </fieldset>
   </form>
+
   <div *nzModalFooter>
-    <button nz-button nzType="primary" (click)="handleCancel()">关闭</button>
+    <!--<button  class="btn btn-info" (click)="handleCancel()">关闭</button>-->
   </div>
 </nz-modal>
 

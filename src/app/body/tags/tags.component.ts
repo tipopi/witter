@@ -18,9 +18,14 @@ export class TagsComponent implements OnInit {
   ngOnInit() {
     this.service.findCount(this.type).subscribe((da: any) => {
       if (da.data.length != 0) {
-        da.data.forEach(item => {
-          this.tags.push(item);
-        });
+        this.tags=da.data;
+      }
+    });
+  }
+  fresh(){
+    this.service.findCount(this.type).subscribe((da: any) => {
+      if (da.data.length != 0) {
+        this.tags=da.data;
       }
     });
   }

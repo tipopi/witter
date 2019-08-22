@@ -1,6 +1,6 @@
 export interface Comments {
   id : string;
-  userid : string;
+  userId : string;
   text : string;
-  createtime : string;
+  createTime : string;
 }

@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit{
   password :string= '';
   erro: boolean=false;
   msg: string='';
-  isConfirmLoading: boolean=false;
   isVisible = false;
   @Output() login: EventEmitter<number> = new EventEmitter<number>();
   ngOnInit(): void {
@@ -30,6 +29,8 @@ export class LoginComponent implements OnInit{
       if(da.meta.code==1){
         this.isVisible = false;
         this.local.set('userId','0');
+        this.local.set('token',da.meta.token);
+        console.log(da.meta.token);
         this.login.emit(null);
       }
       else {
@@ -41,9 +42,13 @@ export class LoginComponent implements OnInit{
 
   }
 
+
+
   constructor(private service:LoginService,private local: LocalStorage) {}
 
   showModal(): void {
+    this.username='';
+    this.password='';
     this.isVisible = true;
   }
 

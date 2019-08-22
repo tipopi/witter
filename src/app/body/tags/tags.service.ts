@@ -11,6 +11,6 @@ export class TagsService {
 
   findCount(type:number){
     const params=new HttpParams().set("type",type.toString());
-    return this.http.get(this.url_count,{params});
+    return this.http.get(this.url_count,{params,withCredentials: true});
   }
 }

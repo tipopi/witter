@@ -1,4 +1,5 @@
 import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {MsgService} from "../../msg.service";
 
 
 @Component({
@@ -10,8 +11,9 @@ export class ShowComponent implements OnInit {
   tag: string ='all';
   refresh: boolean=true;
   date: Date=new Date();
-
-  constructor( private cdr: ChangeDetectorRef) { }
+  constructor( private cdr: ChangeDetectorRef,private msg: MsgService) {
+    this.msg.msgObs$.subscribe(()=>this.onLoadNext());
+  }
 
   ngOnInit() {
   }

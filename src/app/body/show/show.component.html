@@ -1,7 +1,7 @@
 <div class="flex">
   <div>
     <p>
-      <!--//TODO 不正常-->
+
       <nz-date-picker
         nzShowTime
         nzFormat="yyyy-MM-dd HH:mm:ss"
@@ -9,13 +9,11 @@
         (ngModelChange)="onChange($event)"
         (nzOnOk)="onChange($event)"
       ></nz-date-picker>
-      <app-tweet-add></app-tweet-add>
+      <app-tweet-add (fresh)="tags.fresh()"></app-tweet-add>
     </p>
 
-
-
     <app-list [tag]="tag" [date]="date" *ngIf="refresh"
-              (loadNext)="onLoadNext()" ></app-list>
+              (fresh)="onLoadNext();tags.fresh()" ></app-list>
   </div>
-  <app-tags [type]="0" (out)="onTag($event)"></app-tags>
+  <app-tags #tags [type]="0" (out)="onTag($event)"></app-tags>
 </div>

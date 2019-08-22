@@ -16,8 +16,10 @@ export class LoginService {
       password
     };
 
-    return this.http.post(this.add_url,user);
+    return this.http.post(this.add_url,user,{ withCredentials: true});
     }
-
+    logout(){
+     return this.http.get(this.delete_url,{ withCredentials: true});
+    }
   }
 

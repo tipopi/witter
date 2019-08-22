@@ -14,14 +14,14 @@ export class TweetAddService {
       {
         userId,text
       }
-    );
+    ,{withCredentials: true});
   }
   addMap(href,tags){
     let type='0';
-    return this.http.post(this.url_tag_map,{href,tags,type});
+    return this.http.post(this.url_tag_map,{href,tags,type},{withCredentials: true});
   }
   addTag(name){
-    return this.http.post(this.url_add_tag,{name});
+    return this.http.post(this.url_add_tag,{name},{withCredentials: true});
   }
 
 }

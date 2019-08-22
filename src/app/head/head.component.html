@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-info">
   <div class="container">
     <div class="navbar-translate">
-      <a class="navbar-brand" href="#0">Witter</a>
+      <a class="navbar-brand " href="/panel"><i nz-icon nzType="twitter" nzTheme="outline"></i>Witter</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon"></span>
@@ -12,12 +12,20 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto" [ngSwitch]="isLogin">
         <li *ngSwitchCase="true" class="active">
-          <a href="#" class="nav-link">
-            <i class="material-icons">account_circle</i>Boss_pi
+          <a  nzType="primary"
+              nz-popover
+              nzPopoverTitle="记不住密码就别点了"
+              [(nzVisible)]="visible"
+              nzPopoverTrigger="click"
+              [nzPopoverContent]="contentTemplate" class="nav-link">
+            <nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>Boss_pi
           </a>
+          <ng-template #contentTemplate>
+            <a (click)="clickMe();">注销</a>
+          </ng-template>
         </li>
         <li *ngSwitchCase="false" class="active">
-          <app-login (login)="isLogin=true"></app-login>
+          <app-login #log (login)="login()"></app-login>
         </li>
       </ul>
     </div>

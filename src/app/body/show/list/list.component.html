@@ -14,7 +14,7 @@
             {{item.userId==0?'痞老板':'水友'}}
           </ng-template>
           <ng-template #nzDes>
-            <p>{{item.text}}</p><br>
+            <span [innerHTML]="item.text"></span><br>
             <button class="btn btn-info btn-round" (click)="addPower(item.tweetId,item.power+1);item.power=item.power+1">
               <i class="material-icons">favorite</i>  {{item.power}}
             </button>
@@ -23,6 +23,7 @@
                         [tweetId]="item.tweetId"
                         [userId]="item.userId"
             ></app-detail>
+            <button *ngIf="dele" class="btn btn-rose btn-round" (click)="delete(item.tweetId)">删除</button>
           </ng-template>
         </nz-list-item-meta>
       </nz-list-item>
