@@ -24,6 +24,7 @@ import {BlogComponent} from "./body/blog/blog.component";
 import {DetailComponent} from "./body/show/detail/detail.component";
 import {LocalStorage} from "./local.storage";
 import {TweetAddComponent} from "./body/show/tweet-add/tweet-add.component";
+import {FrameworkModule} from "./framework/framework.module";
 registerLocaleData(zh);
 
 @NgModule({
@@ -50,6 +51,7 @@ registerLocaleData(zh);
     ReactiveFormsModule,
     ScrollingModule, DragDropModule,
     BodyModule,
+    FrameworkModule,
     AppRoutingModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN },LocalStorage],
