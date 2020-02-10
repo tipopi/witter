@@ -1,4 +1,12 @@
 <div class="flex">
-  <img class="img"  src="../../../assets/img/shigong.jpg">
-</div>
+  <div>
+    <p>
+      <app-date></app-date>
+      <button (click)="showBlogEditor()">add</button>
+    </p>
+    <app-blog-list></app-blog-list>
+  </div>
 
+  <app-tags #tags [type]="1"></app-tags>
+  <app-blog-detail></app-blog-detail>
+</div>

@@ -15,8 +15,6 @@ import {LoginComponent} from './login/login.component';
 import {BodyModule} from './body/body.module'
 import {PanelComponent} from "./body/panel/panel.component";
 import {HttpClientJsonpModule} from "@angular/common/http";
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import {ListComponent} from "./body/show/list/list.component";
 import {TagsComponent} from "./body/tags/tags.component";
 import {ShowComponent} from "./body/show/show.component";
@@ -25,6 +23,10 @@ import {DetailComponent} from "./body/show/detail/detail.component";
 import {LocalStorage} from "./local.storage";
 import {TweetAddComponent} from "./body/show/tweet-add/tweet-add.component";
 import {FrameworkModule} from "./framework/framework.module";
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import {ScrollingModule} from "@angular/cdk/scrolling";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+
 registerLocaleData(zh);
 
 @NgModule({
@@ -32,13 +34,7 @@ registerLocaleData(zh);
     AppComponent,
     LoginComponent,
     HeadComponent,
-    PanelComponent,
-    ListComponent,
-    TagsComponent,
-    ShowComponent,
-    BlogComponent,
-    DetailComponent,
-    TweetAddComponent
+
   ],
   imports: [
     BrowserModule,
@@ -49,7 +45,7 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     HttpClientJsonpModule,
     ReactiveFormsModule,
-    ScrollingModule, DragDropModule,
+
     BodyModule,
     FrameworkModule,
     AppRoutingModule

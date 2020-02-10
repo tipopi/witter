@@ -1,35 +1,21 @@
 import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
-import {MsgService} from "../../msg.service";
+import {TagsService} from '../tags/tags.service';
+import {DateService} from "../date/date.service";
+import {InfiniteScrollRunService} from "../../framework/service/infinite-scroll-run.service";
+import {TagMsgService} from "../tags/tag-msg.service";
 
 
 @Component({
   selector: 'app-show',
   templateUrl: './show.component.html',
-  styleUrls: ['./show.component.css']
+  styleUrls: ['./show.component.css'],
+  providers:[TagMsgService,DateService,InfiniteScrollRunService]
 })
 export class ShowComponent implements OnInit {
-  tag: string ='all';
-  refresh: boolean=true;
-  date: Date=new Date();
-  constructor( private cdr: ChangeDetectorRef,private msg: MsgService) {
-    this.msg.msgObs$.subscribe(()=>this.onLoadNext());
+
+  constructor() {
   }
 
   ngOnInit() {
   }
-  onChange(result: Date): void {
-    this.date=result;
-    this.onLoadNext();
-  }
-  onLoadNext() {
-    this.refresh = false;
-    this.cdr.detectChanges();
-    this.refresh = true;
-    this.cdr.detectChanges();
-  }
-  onTag(id){
-    this.tag=id;
-    this.onLoadNext();
-  }
-
 }

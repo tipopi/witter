@@ -1,0 +1,24 @@
+<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr"   itemSize="option.itemHeight" minBufferPx="200" maxBufferPx="400">
+  <nz-list [nzItemLayout]="'vertical'">
+    <nz-list-item *cdkVirtualFor="let item of item$| async" [nzContent]="textRef" [nzActions]="[power,detail,delete]">
+
+      <ng-template #power>
+      </ng-template>
+      <ng-template #detail>
+        <button (click)="detailShow(item)">文章详情</button>
+      </ng-template>
+      <ng-template #delete>
+        <button *ngIf="isPi" class="btn btn-rose btn-round" (click)="delete(item.blogId)">删除</button>
+      </ng-template>
+
+      <nz-list-item-meta
+        [nzTitle]="item.title"
+        [nzDescription]="tags">
+      </nz-list-item-meta>
+      <ng-template #textRef>
+        <span [innerHTML]="item.description"></span>
+      </ng-template>
+      <ng-template #tags><span *ngFor="let tag of item.tags"> {{tag.name}} </span></ng-template>
+    </nz-list-item>
+  </nz-list>
+</cdk-virtual-scroll-viewport>

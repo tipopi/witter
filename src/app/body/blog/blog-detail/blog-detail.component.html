@@ -1,0 +1,25 @@
+<nz-drawer
+  *ngIf="visible"
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  [nzTitle]="isAdd?'添加文章':item.title"
+  [nzWidth]="1000"
+  (nzOnClose)="close()"
+>
+
+<nz-tabset *ngIf="isPi">
+<nz-tab nzTitle="详情">
+  <ng-template nz-tab>
+    <app-blog-detail-show [item]="item"></app-blog-detail-show>
+  </ng-template>
+</nz-tab>
+  <nz-tab nzTitle="编辑">
+    <ng-template nz-tab>
+      <app-blog-add (closeWindow)="close()" [item]="item" ></app-blog-add>
+    </ng-template>
+  </nz-tab>
+</nz-tabset>
+<app-blog-add (closeWindow)="close()" [item]="item" *ngIf="isAdd"></app-blog-add>
+  <app-blog-detail-show *ngIf="!isPi&&!isAdd" [item]="item"></app-blog-detail-show>
+</nz-drawer>

@@ -1,1 +1,7 @@
-<p>infinite-scroll-list works!</p>
+<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr"   itemSize="itemHeight" minBufferPx="200" maxBufferPx="400">
+  <ng-container  *cdkVirtualFor="let state of item$ | async">
+  <ng-template
+    *ngTemplateOutlet="template;context:{state:state}"
+  ></ng-template>
+  </ng-container>
+</cdk-virtual-scroll-viewport>

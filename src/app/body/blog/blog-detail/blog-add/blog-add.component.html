@@ -1,0 +1,43 @@
+
+
+  <div>
+    <form [formGroup]="group" (ngSubmit)="onSubmit()">
+      <nz-form-item *ngIf="isAdd">
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="name">标题</nz-form-label>
+        <nz-form-control [nzSpan]="8" nzErrorTip="标题不能为空">
+          <input type="text" nz-input formControlName="title" placeholder="Please input your title" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="description">描述</nz-form-label>
+        <nz-form-control [nzSpan]="8" >
+          <textarea type="text" nz-input formControlName="description" placeholder="Please input description"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="content" >正文</nz-form-label>
+        <nz-form-control [nzSpan]="8" nzErrorTip="正文不能为空">
+        <ckeditor formControlName="content" [editor]="Editor" [config]="config"></ckeditor>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label  [nzSpan]="4" nzRequired nzFor="description">标签</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <div class="col-lg-5 col-sm-4">
+            <div class="form-group has-default">
+              <input  formControlName="tagIn" type="text" class="form-control"  placeholder="标签不能超过10个字符"  />
+            </div>
+          </div>
+          <button type="button" class="btn btn-rose btn-round" (click)="addTag();">添加</button>
+          <li *ngFor="let tag of tags">
+            {{tag.name}}
+          </li>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button type="submit">提交</button>
+    </form>
+  </div>
+

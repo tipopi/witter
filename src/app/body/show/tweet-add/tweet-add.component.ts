@@ -3,7 +3,8 @@ import {Img} from "../../../model/img";
 import {TweetAddService} from "./tweet-add.service";
 import {LocalStorage} from "../../../local.storage";
 import {Tag} from "../../../model/tag";
-import {forEachComment} from "tslint";
+import {UserService} from "../../../framework/service/user.service";
+
 @Component({
   selector: 'app-tweet-add',
   templateUrl: './tweet-add.component.html',
@@ -19,7 +20,10 @@ export class TweetAddComponent implements OnInit {
   tags: Tag[]=[];
   @Output() fresh: EventEmitter<null> = new EventEmitter<null>();
   erro: string='';
-  constructor(private servic: TweetAddService,private local: LocalStorage) { }
+  user:number;
+  constructor(private servic: TweetAddService,private userService:UserService) {
+    this.userService.userObs$.subscribe(user=>this.user=user);
+  }
 
   ngOnInit() {
 
@@ -36,7 +40,7 @@ export class TweetAddComponent implements OnInit {
     let string = this.inputValue.replace(/\r\n/g,"<br>");
     string = string.replace(/\n/g,"<br/>");
     string = string.replace(/\s/g,"&nbsp;");
-    this.servic.addTweet(this.local.get('userId'),string).subscribe((da: any)=>{
+    this.servic.addTweet(this.user,string).subscribe((da: any)=>{
       if(da.meta.code=='1'&&this.tags.length!=0){
         let id=da.data;
         let tags=[];
@@ -88,7 +92,7 @@ export class TweetAddComponent implements OnInit {
     this.inputValue='';
     this.inputTag='';
     this.erro='';
-    if (this.local.get('userId') == '0') {
+    if (this.user == 1) {
       this.userName = '痞老板';
       this.img = Img.img0;
     } else {

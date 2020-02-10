@@ -21,7 +21,8 @@ export class TweetAddService {
     return this.http.post(this.url_tag_map,{href,tags,type},{withCredentials: true});
   }
   addTag(name){
-    return this.http.post(this.url_add_tag,{name},{withCredentials: true});
+    let type='0';
+    return this.http.post(this.url_add_tag,{name,type},{withCredentials: true});
   }
 
 }

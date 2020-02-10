@@ -1,63 +1,43 @@
-import {ViewChild, Component, OnInit,ChangeDetectionStrategy,Input } from '@angular/core';
-import {CdkScrollable, ScrollDispatcher} from '@angular/cdk/overlay';
-import { BehaviorSubject,Subject, Observable,merge,pipe,fromEvent,of } from 'rxjs';
-import { ElementRef } from '@angular/core';
-import { map,delay, filter, debounceTime, distinct, mergeMap, tap} from 'rxjs/operators';
-import { InfiniteScrollService } from '../../service/infinite-scroll.service';
+import { Injectable } from '@angular/core';
+import { Subject, BehaviorSubject, fromEvent, merge, of, Observable } from 'rxjs';
+import { map, debounceTime, distinct, filter, mergeMap, tap, delay, concatMap } from 'rxjs/operators';
 
-@Component({
-  selector: 'app-infinite-scroll-list',
-  templateUrl: './infinite-scroll-list.component.html',
-  styleUrls: ['./infinite-scroll-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+@Injectable({
+  providedIn: 'root'
 })
-export class InfiniteScrollListComponent implements OnInit {
-  @Input() template: any;
-  @Input() option:{
+export class InfiniteScrollRunService {
+  private cache=[];
+  private page=1;
+  private itemNumber;
+  private heghit;
+  private itemHeight;
+  private pageByManual$ = new BehaviorSubject(1);
+  private pageByScroll$;
+  private pageByResize$;
+  private pageToLoad$;
+  private disClear$=new BehaviorSubject(1);
+  private refreshSource=new Subject();
+  refresh$=this.refreshSource.asObservable();
+  itemResults$;
+  item$=new Subject();
+  option:{
     handle:any,
     style:any,
     itemHeight:number,
     itemNumber:number,
     pageInit:any
   }
-  private cache=[];
-  private page=1;
-  private itemNumber;
-  private heghit;
-  private itemHeight;
-  private item$=new Subject();
-  private pageByManual$ = new BehaviorSubject(1);
-  private pageByScroll$;
-  private pageByResize$;
-  private pageToLoad$;
-  private disClear$=new BehaviorSubject(1);
-  itemResults$;
-
-  constructor(private service:InfiniteScrollService) {
-  }
-
-  scrollDataSource(page:number,handle:any){
-    return handle(page);
-  };
-  ngOnInit(){
-
+  constructor() {}
+  optionSet(option:any){
+    this.option=option;
     this.heghit=this.option.style.height?Number(this.option.style.height.replace('px','')):200;
     this.itemHeight=this.option.itemHeight?this.option.itemHeight:20;
     this.itemNumber=this.option.itemNumber?this.option.itemNumber:10;
-
   }
-  // ngOnInit() {
-  //     fromEvent(document.querySelector('#btn'),'click').subscribe(_=>{
-  //        console.log('ok');
-  //        this.item$.next([]);
-  //      });
-  // }
-  pageInit(){
-    this.pageByManual$.next(1);
-    this.pageByManual$.next(this.option.pageInit?this.option.pageInit:2);
-  }
-  ngAfterViewInit(): void {
-    let dom=document.querySelector('#scr');
+  //同时段页面中有多个无限列表需要指定dom
+  init(option:any,src?:HTMLTemplateElement): Observable<any>{
+    this.optionSet(option);
+    let dom=src?src:document.querySelector('#scr');
     this.pageByScroll$= fromEvent(dom, "scroll").pipe(
       map(() => document.querySelector('#scr').scrollTop),
       debounceTime(100),
@@ -87,28 +67,35 @@ export class InfiniteScrollListComponent implements OnInit {
         }else {
           return of(page);
         }
-
       }),
-      mergeMap((page: number) => {
+      //mergeMap是同时进行内部订阅的，会导致不安全的数据操作。
+      concatMap((page: number) => {
         return this.scrollDataSource(page,this.option.handle).pipe(
+          delay(0),
           tap(resp => {
             this.page=page;
             this.cache[page-1]=resp;
           }));
-      }),
-      delay(0)
+      })
     );
     this.itemResults$.subscribe(_=>this.item$.next([].concat(...this.cache)));
     this.pageInit();
-    this.service.refresh$.subscribe(handle=>{
-      if(handle){
-        this.option.handle=handle;
-      }
-      this.page=1;
-      this.cache=[];
-      this.item$.next([]);
-      this.disClear$.next(1);
-      this.pageInit();
-    });
+    return this.item$;
   }
+  scrollDataSource(page:number,handle:any){
+    return handle(page);
+  };
+  pageInit(){
+    this.pageByManual$.next(1);
+    this.pageByManual$.next(this.option.pageInit?this.option.pageInit:2);
+  }
+  refreshData(handle?:(page:number)=>void){
+    if(handle){
+      this.option.handle=handle;
+    }
+    this.page=1;
+    this.cache=[];
+    this.disClear$.next(1);
+    this.pageInit();
+}
 }

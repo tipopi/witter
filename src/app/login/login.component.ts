@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {LoginService} from './login.service';
 import {Result} from '../model/result'
 import {LocalStorage} from "../local.storage";
+import {UserService} from "../framework/service/user.service";
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit{
   msg: string='';
   isVisible = false;
   @Output() login: EventEmitter<number> = new EventEmitter<number>();
+  constructor(private service:LoginService,private userService:UserService) {}
   ngOnInit(): void {
   }
   onSubmit(formValue) {
@@ -28,9 +30,10 @@ export class LoginComponent implements OnInit{
     {
       if(da.meta.code==1){
         this.isVisible = false;
-        this.local.set('userId','0');
-        this.local.set('token',da.meta.token);
-        console.log(da.meta.token);
+        this.userService.login();
+        this.userService.setToken(da.meta.token);
+        // this.local.set('userId','0');
+        //         // this.local.set('token',da.meta.token);
         this.login.emit(null);
       }
       else {
@@ -44,7 +47,7 @@ export class LoginComponent implements OnInit{
 
 
 
-  constructor(private service:LoginService,private local: LocalStorage) {}
+
 
   showModal(): void {
     this.username='';

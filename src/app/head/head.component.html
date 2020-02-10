@@ -21,11 +21,11 @@
             <nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>Boss_pi
           </a>
           <ng-template #contentTemplate>
-            <a (click)="clickMe();">注销</a>
+            <a (click)="logout();">注销</a>
           </ng-template>
         </li>
         <li *ngSwitchCase="false" class="active">
-          <app-login #log (login)="login()"></app-login>
+          <app-login #log></app-login>
         </li>
       </ul>
     </div>

@@ -1,0 +1,32 @@
+<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr"   itemSize="option.itemHeight" minBufferPx="200" maxBufferPx="400">
+  <nz-list [nzItemLayout]="'vertical'">
+    <nz-list-item *cdkVirtualFor="let item of item$| async" [nzActions]="[power,detail,delete]">
+
+      <ng-template #power>
+        <button class="btn btn-info btn-round" (click)="addPower(item.tweetId,item.power+1);item.power=item.power+1">
+            <span [innerHTML]="item.power"></span>
+        </button>
+      </ng-template>
+      <ng-template #detail>
+        <app-detail [createTime]="item.createTime"
+                    [text]="item.text"
+                    [tweetId]="item.tweetId"
+                    [userId]="item.userId"
+        ></app-detail>
+      </ng-template>
+      <ng-template #delete>
+          <button *ngIf="isPi" class="btn btn-rose btn-round" (click)="delete(item.tweetId)">删除</button>
+      </ng-template>
+
+      <nz-list-item-meta
+        [nzTitle]="item.userId!=0?'痞老板':'水友'"
+        [nzAvatar]="item.userId!=0?img0:img1"
+        [nzDescription]="textRef"
+      >
+        <ng-template #textRef>
+          <span [innerHTML]="item.text"></span>
+        </ng-template>
+      </nz-list-item-meta>
+    </nz-list-item>
+  </nz-list>
+</cdk-virtual-scroll-viewport>

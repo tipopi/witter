@@ -1,6 +1,15 @@
 <div>
   <p>标签</p>
-  <button  class="btn btn-rose" (click)="outTag('all')">all</button>
-  <button class="btn btn-danger" (click)="outTag(id.value)" *ngFor="let tag of tags">
-    <input type="hidden" #id value="{{tag.id}}">{{tag.name}} {{tag.tagCount}}</button>
+  <button  nz-button nzSize="large" nzType="danger" (click)="outTag('all')">all</button>
+  <button nz-button nz-popover
+          [nzPopoverContent]="isPi?deleteTemplate:null"
+          nzPopoverPlacement="right"
+          nzSize="small" nzType="primary" (click)="outTag(tag.tagId)" *ngFor="let tag of tags">
+    {{tag.name}} {{tag.tagCount}}
+    <ng-template  #deleteTemplate>
+      <a (click)="deleteTag(tag.tagId)">删除标签</a>
+    </ng-template>
+  </button>
+
+
 </div>
