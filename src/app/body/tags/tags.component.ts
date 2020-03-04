@@ -3,6 +3,7 @@ import {TagsService} from "./tags.service";
 import {Tag} from "../../model/tag";
 import {UserService} from "../../framework/service/user.service";
 import {TagMsgService} from "./tag-msg.service";
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tags',
@@ -14,16 +15,19 @@ export class TagsComponent implements OnInit {
   tags: Tag[] = [];
   @Input() type: number;
   isPi=false;
+  deleteModal=false;
+  checkTag:string='all';
+  index=0;
   constructor(private service: TagsService,private userService:UserService,private tagMsgService:TagMsgService) {
     this.userService.userObs$.subscribe(status=> this.isPi=status==1?true:false);
+    this.tagMsgService.freshObs$.subscribe(_=>this.fresh());
   }
 
   ngOnInit() {
     this.fresh();
-    this.tagMsgService.freshObs$.subscribe(_=>this.fresh());
   }
   fresh(){
-    this.service.findCount(this.type).subscribe((da: any) => {
+    this.service.findCount(this.type).pipe(delay(0)).subscribe((da: any) => {
       if (da.meta.code===1) {
         this.tags=da.data;
       }
@@ -33,10 +37,15 @@ export class TagsComponent implements OnInit {
     this.service.delete(id).subscribe((msg:any)=>{
       if(msg.meta.code===1){
         this.fresh();
+        if(this.checkTag==id||this.checkTag=='all'){
+          this.outTag('all');
+          this.index=0;
+        }
       }
     });
   }
   outTag(id) {
+    this.checkTag=id;
     this.tagMsgService.setTag(id);
   }
 

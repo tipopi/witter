@@ -1,18 +1,16 @@
 <div>
-  <div>
-    <label><strong>描述:</strong></label>
-    <span>{{item.description}}</span>
+  <div class="row">
+    <span style="margin-right: 10px"><strong >描述:</strong></span>
+    <span >{{item.description}}</span>
   </div>
-  <div>
-    <label><strong>正文:</strong></label>
-    <span>{{item.content}}</span>
+  <div class="row">
+    <p><strong>正文:</strong></p>
+    <nz-card style="width:1000px;" >
+      <div [innerHTML]="item.content"></div>
+    </nz-card>
   </div>
-  <div>
-    <label><strong>标签:</strong></label>
-    <span *ngFor="let tag of item.tags">{{tag.name}}</span>
+  <div class="row">
+    <span style="margin-right: 10px"><strong>标签:</strong></span>
+    <nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of item.tags,let tagIndex = index">{{tag.name}}</nz-tag>
   </div>
-
-
-
-
 </div>

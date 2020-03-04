@@ -1,3 +1,9 @@
 .nz{
   width: 500px;
+  margin-left: 10px;
+}
+.ant-btn-tag-btn{
+  background-color: #c27400;
+  color: white;
+  margin-right: 10px;
 }

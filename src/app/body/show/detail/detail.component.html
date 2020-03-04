@@ -15,24 +15,24 @@
   <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>&nbsp;:&nbsp;</p>
   <span [innerHTML]="text"></span>
   <p class="time">{{createTime | date:'yyyy年:MM月:dd日'}}</p>
-  <nz-divider *ngIf="isVisible" nzText="文明评论区"></nz-divider>
+  <nz-divider *ngIf="isVisible" nzText="评论"></nz-divider>
 
      <div  *ngFor="let item of coms">
-       <p><nz-avatar nzIcon="user" [nzSrc]="item.userId== 0?img0:img1"></nz-avatar> {{item.userId==0?'痞老板':'水友'}}</p>
+       <p><nz-avatar nzIcon="user" [nzSrc]="item.userId== 0?img0:img1"></nz-avatar> {{item.userId==0?'痞老板':'游客'}}</p>
        <p>{{item.text}}</p>
        <button class="btn btn-rose btn-round" (click)="deleteCom(item.id)" *ngIf="dele">删除</button><li class="time">{{item.createTime | date:'yyyy年:MM月:dd日'}}</li>
        <nz-divider></nz-divider>
      </div>
-  <textarea placeholder="口吐芬芳" rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  <textarea placeholder="评论内容" rows="4" nz-input [(ngModel)]="inputValue"></textarea>
 
   <div *nzModalFooter>
     <p class="flex">
-      <button class="btn btn-primary btn-round  btn-sm" (click)="addCom()"><i class="material-icons">chat</i>发表</button>
-      <button class="btn btn-info  btn-round  btn-sm"   (click)="handleCancel()">关闭</button>
+      <button nz-button nzType="primary" (click)="addCom()"><i nz-icon nzType="plus" nzTheme="outline"></i>发表评论</button>
+      <button nz-button (click)="handleCancel()"><i nz-icon nzType="close" nzTheme="outline"></i>关闭</button>
     </p>
 
   </div>
 </nz-modal>
-<button  (click)="showModal()" class="btn btn-primary btn-round">推文详情
+<button  (click)="showModal()" nz-button nzShape="round" nzType="detail-btn"  >推文详情
 </button>
 

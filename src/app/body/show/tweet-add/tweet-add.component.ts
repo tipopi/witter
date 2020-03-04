@@ -4,6 +4,8 @@ import {TweetAddService} from "./tweet-add.service";
 import {LocalStorage} from "../../../local.storage";
 import {Tag} from "../../../model/tag";
 import {UserService} from "../../../framework/service/user.service";
+import {ShowMsgService} from "../show-msg.service";
+import {TagMsgService} from "../../tags/tag-msg.service";
 
 @Component({
   selector: 'app-tweet-add',
@@ -12,16 +14,27 @@ import {UserService} from "../../../framework/service/user.service";
   providers: [TweetAddService]
 })
 export class TweetAddComponent implements OnInit {
+  @Output() fresh: EventEmitter<null> = new EventEmitter<null>();
   isVisible: boolean;
   img;
   userName;
   inputValue: string;
   inputTag: string;
   tags: Tag[]=[];
-  @Output() fresh: EventEmitter<null> = new EventEmitter<null>();
+  tagColor=new Map([
+    [0,'magenta'],
+    [1,'purple'],
+    [2,'blue'],
+    [3,'volcano']
+  ]);
   erro: string='';
   user:number;
-  constructor(private servic: TweetAddService,private userService:UserService) {
+
+  constructor(private servic: TweetAddService,
+              private userService:UserService,
+              private showMsgService : ShowMsgService,
+              private tagMsgService:TagMsgService
+              ) {
     this.userService.userObs$.subscribe(user=>this.user=user);
   }
 
@@ -51,7 +64,7 @@ export class TweetAddComponent implements OnInit {
           }
         });
       }
-      this.isVisible=false;
+      this.handleCancel();
     }
     );
   }
@@ -84,6 +97,8 @@ export class TweetAddComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+    this.showMsgService.refreshList(true);
+    this.tagMsgService.freshTags();
   }
 
   showModal(): void {

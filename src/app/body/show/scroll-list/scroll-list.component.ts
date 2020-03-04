@@ -9,6 +9,8 @@ import {UserService} from "../../../framework/service/user.service";
 import {TagsService} from "../../tags/tags.service";
 import {DateService} from "../../date/date.service";
 import {TagMsgService} from "../../tags/tag-msg.service";
+import { ShowMsgService } from '../show-msg.service';
+import {NzMessageService} from "ng-zorro-antd";
 
 @Component({
   selector: 'app-scroll-list',
@@ -25,6 +27,7 @@ export class ScrollListComponent implements OnInit {
   date:Date=this.setDate();
   tag:string="all";
   isPi:boolean=false;
+  token;
   handle=page=>{
     return this.service.findAll(this.tag,this.date,page).pipe(
       map((item:any)=>{
@@ -48,13 +51,19 @@ export class ScrollListComponent implements OnInit {
               private service:ScrollListService,
               private userService:UserService,
               private tagsService:TagMsgService,
-              private dateService:DateService) {
+              private dateService:DateService,
+              private showMsgService : ShowMsgService,
+              private nzMessageService: NzMessageService
+              ) {
+    this.showMsgService.refreshList$.subscribe((save:boolean)=>{
+      this.scrollService.refreshData(this.handle,save);
+    });
+    this.userService.tokenObs$.subscribe(token=>{this.token=token});
     this.tagsService.tagObs$.subscribe((tag:string)=> {
         this.tag = tag;
         this.scrollService.refreshData(this.handle);
       });
     this.dateService.dateObs$.subscribe((date:Date)=>{
-      console.log(date)
       this.date=date;
       this.scrollService.refreshData(this.handle);
     });
@@ -72,17 +81,17 @@ export class ScrollListComponent implements OnInit {
   addPower(id,power){
     this.service.addPower(id,power).subscribe();
   }
-  delete(id){
-    this.userService.tokenObs$.subscribe(token=>{
-      this.service.deleteTweet(id,token).subscribe((da: any)=>{
+  deleteTweet(id){
+      this.service.deleteTweet(id,this.token).subscribe((da: any)=>{
         if(da.meta.code==1){
-          this.scrollService.refreshData();//TODO
+          this.nzMessageService.info("删除成功");
           this.userService.setToken(da.meta.token);
           this.tagsService.freshTags();
+          this.scrollService.refreshData(this.handle, true);
+        }else {
+          this.nzMessageService.error("删除失败，系统错误");
         }
-      })
-    })
-
+      });
   }
   ngOnInit() {
   }

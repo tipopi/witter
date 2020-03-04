@@ -22,7 +22,7 @@
     "@ckeditor/ckeditor5-angular": "^1.1.2",
     "@ckeditor/ckeditor5-build-classic": "^16.0.0",
     "angular2-cookie": "^1.2.6",
-    "ng-zorro-antd": "^8.2.0",
+    "ng-zorro-antd": "^8.5.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

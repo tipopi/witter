@@ -45,7 +45,6 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     HttpClientJsonpModule,
     ReactiveFormsModule,
-
     BodyModule,
     FrameworkModule,
     AppRoutingModule

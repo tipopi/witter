@@ -2,11 +2,11 @@
   <div>
     <p>
       <app-date></app-date>
-      <button (click)="showBlogEditor()">add</button>
+      <button  nz-button nzType="add-btn" nzShape="round" *ngIf="isPi" (click)="showBlogEditor()"><i nz-icon nzType="highlight" nzTheme="outline"></i>写文章</button>
     </p>
     <app-blog-list></app-blog-list>
   </div>
 
-  <app-tags #tags [type]="1"></app-tags>
+  <app-tags [type]="1"></app-tags>
   <app-blog-detail></app-blog-detail>
 </div>

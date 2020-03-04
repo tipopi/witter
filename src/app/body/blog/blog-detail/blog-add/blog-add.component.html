@@ -1,43 +1,43 @@
 
 
-  <div>
-    <form [formGroup]="group" (ngSubmit)="onSubmit()">
+  <div class="fa">
+    <form class="fa" [formGroup]="group" (ngSubmit)="onSubmit()">
       <nz-form-item *ngIf="isAdd">
-        <nz-form-label [nzSpan]="4" nzRequired nzFor="name">标题</nz-form-label>
-        <nz-form-control [nzSpan]="8" nzErrorTip="标题不能为空">
+        <nz-form-label [nzSpan]="2" nzRequired nzFor="name">标题</nz-form-label>
+        <nz-form-control [nzSpan]="20" nzErrorTip="标题不能为空">
           <input type="text" nz-input formControlName="title" placeholder="Please input your title" />
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label [nzSpan]="4" nzRequired nzFor="description">描述</nz-form-label>
-        <nz-form-control [nzSpan]="8" >
-          <textarea type="text" nz-input formControlName="description" placeholder="Please input description"></textarea>
+        <nz-form-label [nzSpan]="2" nzRequire nzFor="description">描述</nz-form-label>
+        <nz-form-control [nzSpan]="20" >
+          <input type="text" nz-input formControlName="description" placeholder="Please input description">
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSpan]="4" nzRequired nzFor="content" >正文</nz-form-label>
-        <nz-form-control [nzSpan]="8" nzErrorTip="正文不能为空">
-        <ckeditor formControlName="content" [editor]="Editor" [config]="config"></ckeditor>
+        <nz-form-label [nzSpan]="2" nzRequired nzFor="content" >正文</nz-form-label>
+        <nz-form-control [nzSpan]="20" nzErrorTip="正文不能为空">
+        <ckeditor formControlName="content" [editor]="editor" [config]="config"></ckeditor>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label  [nzSpan]="4" nzRequired nzFor="description">标签</nz-form-label>
-        <nz-form-control [nzSpan]="8">
+        <nz-form-label  [nzSpan]="2"  nzFor="description">标签</nz-form-label>
+        <nz-form-control [nzSpan]="16">
           <div class="col-lg-5 col-sm-4">
             <div class="form-group has-default">
               <input  formControlName="tagIn" type="text" class="form-control"  placeholder="标签不能超过10个字符"  />
             </div>
           </div>
-          <button type="button" class="btn btn-rose btn-round" (click)="addTag();">添加</button>
-          <li *ngFor="let tag of tags">
-            {{tag.name}}
-          </li>
+          <button type="button" nz-button nzType="tag-btn"  nzShape="round" (click)="addTag();">添加标签</button>
+          <nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of tags,let tagIndex = index">{{tag.name}}</nz-tag>
         </nz-form-control>
       </nz-form-item>
-
-      <button type="submit">提交</button>
+      <div class="footer">
+        <button type="primary" nz-button nzType="add-btn" nzShape="round"><i nz-icon nzType="edit" nzTheme="outline"></i><span>{{isAdd?"发布":"编辑"}}</span></button>
+        <button type="button" nz-button  nzShape="round"  style="margin-left: 8px;" (click)="close(null)"><i nz-icon nzType="close" nzTheme="outline"></i><span>Cancel</span></button>
+      </div>
     </form>
   </div>
 

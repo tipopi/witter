@@ -6,6 +6,39 @@ import {Tag} from "../../../../model/tag";
 import { Blog } from 'src/app/model/blog';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js';
+import {NzMessageService} from "ng-zorro-antd";
+import {HttpClient} from "@angular/common/http";
+import { UserService } from 'src/app/framework/service/user.service';
+export class FileUploadAdapter{
+  service:BlogAddService;
+  constructor(private loader,private editor) {
+    this.service=editor.config.get("service");
+  }
+
+  upload() {
+    return new Promise((resolve, reject) => {
+      this.service.getContent(1)
+        .subscribe(
+          (resp:any) => {
+            console.log(resp)
+            resolve({
+              default: resp.url
+            });
+          },
+          (err) => reject(err));
+    });
+  }
+
+  abort() {
+    // Abort current upload process.
+  }
+}
+export function CustomUploadAdapterPlugin(editor) {
+  editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+    return new FileUploadAdapter(loader,editor);
+  };
+}
+
 @Component({
   selector: 'app-blog-add',
   templateUrl: './blog-add.component.html',
@@ -16,18 +49,32 @@ export class BlogAddComponent implements OnInit {
   @Input()
   item:Blog;
   @Output()
-  closeWindow = new EventEmitter<boolean>();
-  public Editor = ClassicEditor;
-  public config = {
-    language: 'zh-cn'
-  };
+  closeWindow = new EventEmitter<Blog>();
+  public editor = ClassicEditor;
+  public config;
   isAdd=false;
   group:FormGroup;
   tags:Tag[]=[];
+  tagColor=new Map([
+    [0,'magenta'],
+    [1,'purple'],
+    [2,'blue'],
+    [3,'volcano']
+  ]);
+  token;
 
   constructor(private blogAddMsgService:BlogAddMsgService,
               private fb: FormBuilder,
-              private service:BlogAddService) {
+              private service:BlogAddService,
+              private nzMessage:NzMessageService,
+              private userService:UserService
+  ) {
+      this.config = {
+      language: 'zh-cn',
+      service,
+      extraPlugins: [CustomUploadAdapterPlugin]
+    };
+    this.userService.tokenObs$.subscribe(token=>this.token=token);
   }
   setEditForm(){
     this.group=this.fb.group({
@@ -35,7 +82,7 @@ export class BlogAddComponent implements OnInit {
       description: [this.item.description],
       tagIn:['']
     });
-    this.tags=this.item.tags;
+    this.tags=[...this.item.tags];
   }
 
   setAddForm(){
@@ -83,17 +130,24 @@ export class BlogAddComponent implements OnInit {
       ...this.group.value,
       tags:this.tags
     };
-    this.compare(blog);
     if(this.isAdd){
-      this.service.addBlog(blog).subscribe((result:any)=>{
+      this.service.addBlog(blog,this.token).subscribe((result:any)=>{
         if(result.meta.code==1){
           this.close();
+          this.userService.setToken(result.meta.token);
+          this.nzMessage.info("发布成功");
+        }else {
+          this.nzMessage.error("服务器错误");
         }
       });
     }else {
       this.service.updateBlog(this.compare(blog)).subscribe((result : any) => {
         if(result.meta.code==1){
-          console.log();//TODO提示
+            this.close(result.data);
+            this.userService.setToken(result.meta.token);
+            this.nzMessage.info("编辑成功");
+        }else {
+          this.nzMessage.error("服务器错误");
         }
       });
     }
@@ -104,14 +158,13 @@ export class BlogAddComponent implements OnInit {
     blog.tags = blog.tags.filter(tag=>tag.id==0);
     blog.blogId=this.item.blogId;
     blog.contentId=this.item.contentId;
-    console.log(blog);
     return blog;
   }
-  close(){
+  close(item?:Blog){
     this.isAdd=false;
     this.item=null;
     this.tags=[];
     this.group.reset();
-    this.closeWindow.emit();
+    this.closeWindow.emit(item);
   }
 }

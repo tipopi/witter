@@ -16,6 +16,6 @@ export class TagMsgService {
     this.freshSource.next();
   }
   setTag(tag){
-    this.tagSource.next(tag.toString());
+    this.tagSource.next(tag);
   }
 }

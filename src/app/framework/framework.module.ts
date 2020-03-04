@@ -16,8 +16,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ],
   imports: [
     CommonModule,
-    ScrollingModule, DragDropModule,
-    NgZorroAntdModule,
+    ScrollingModule,
     CKEditorModule,
   ]
 })

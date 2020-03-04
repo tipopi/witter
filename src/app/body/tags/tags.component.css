@@ -1,3 +1,12 @@
 .btn{
   width: 100px;
 }
+.content{
+  height: 380px;
+}
+.lable{
+  display: block;
+  height: 30px;
+  width: 80px;
+  lineHeight: 30px;
+}

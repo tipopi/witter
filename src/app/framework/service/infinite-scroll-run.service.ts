@@ -27,6 +27,7 @@ export class InfiniteScrollRunService {
     itemNumber:number,
     pageInit:any
   }
+  dom:Element;
   constructor() {}
   optionSet(option:any){
     this.option=option;
@@ -38,6 +39,7 @@ export class InfiniteScrollRunService {
   init(option:any,src?:HTMLTemplateElement): Observable<any>{
     this.optionSet(option);
     let dom=src?src:document.querySelector('#scr');
+    this.dom=dom;
     this.pageByScroll$= fromEvent(dom, "scroll").pipe(
       map(() => document.querySelector('#scr').scrollTop),
       debounceTime(100),
@@ -89,13 +91,25 @@ export class InfiniteScrollRunService {
     this.pageByManual$.next(1);
     this.pageByManual$.next(this.option.pageInit?this.option.pageInit:2);
   }
-  refreshData(handle?:(page:number)=>void){
+  refreshData(handle?:(page:number)=>void,save:boolean=false){
     if(handle){
       this.option.handle=handle;
     }
-    this.page=1;
     this.cache=[];
     this.disClear$.next(1);
-    this.pageInit();
-}
+    //保存工作空间
+    if(save){
+      let top=this.dom.scrollTop;
+      let lastPage=this.page;
+      this.page=1;
+      this.pageByManual$.next(1);
+      this.pageByManual$.next(lastPage);
+      setTimeout(_=>this.dom.scrollTop=top,100);
+    }else{
+      //不保存直接复位
+      this.dom.scrollTop=0;
+      this.pageInit();
+    }
+
+  }
 }
