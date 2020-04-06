@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit{
 
   handleCancel(): void {
     this.isVisible = false;
+    this.erro = false;
   }
 
 

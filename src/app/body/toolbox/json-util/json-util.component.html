@@ -1,0 +1,23 @@
+<div nz-row nzType="flex" nzJustify="center" nzAlign="middle">
+
+<textarea
+  nz-input
+  nz-col nzSpan="8"
+  placeholder="Autosize height with minimum and maximum number of lines"
+  [(ngModel)]="in"
+  class="card"
+  [nzAutosize]="{ minRows: 30, maxRows: 50 }"
+></textarea>
+
+
+<button nz-col nzSpan="2" nzType="danger" nz-button class="change"   (click)="change()">格式化<i nz-icon nzType="arrow-right" nzTheme="outline"></i></button>
+  <textarea
+    nz-input
+    nz-col nzSpan="8"
+    class="card"
+    [ngStyle]="{color:error?'red':''}"
+    readonly
+    [nzAutosize]="{ minRows: 30, maxRows: 50 }"
+  >{{result}}
+  </textarea>
+</div>

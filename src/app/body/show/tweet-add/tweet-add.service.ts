@@ -5,9 +5,9 @@ import {HttpUtilService} from "../../../framework/service/http-util.service";
 
 @Injectable()
 export class TweetAddService {
-  private url_add = Url.url + '/tweet/addTweet';
-  private url_add_tag = Url.url + '/tag/add';
-  private url_tag_map=Url.url+'/tag/addMap';
+  private url_add = '/tweet/addTweet';
+  private url_add_tag ='/tag/add';
+  private url_tag_map='/tag/addMap';
   constructor(private http: HttpUtilService) { }
 
   addTweet(userId,text){

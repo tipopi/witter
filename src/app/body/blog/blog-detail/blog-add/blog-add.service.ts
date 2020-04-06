@@ -2,19 +2,29 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Url} from "../../../../model/url";
 import {HttpUtilService} from "../../../../framework/service/http-util.service";
+import {ObservableInput} from "rxjs/src/internal/types";
+import {Observable, Subject} from 'rxjs';
 
 @Injectable()
 export class BlogAddService {
-  private url_content=Url.url+"/blog/test";
-  private url_add = Url.url + "/blog/add";
-  private url_up = Url.url + "/blog/update";
-  private url_token = Url.url + "/picToken";
+  private url_up_file="http://up-z2.qiniup.com";
+  private url_add = "/blog/add";
+  private url_up = "/blog/update";
+  private url_token ="/picToken";
+  private imgSouce=new Subject<string>();
+  imgObs$=this.imgSouce.asObservable();
   constructor(private http:HttpUtilService) { }
-  getContent(id){
-    this.getToken().subscribe();
-    return this.http.get(this.url_content,null);
+  putImg(imgKey:string){
+    this.imgSouce.next(imgKey);
   }
-  getToken(){
+  upload(file:File,token:string):Observable<any>{
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('key', file.name);
+    formData.append('token', token);
+    return this.http.post_up(this.url_up_file,formData);
+  }
+  getToken():Observable<any>{
     return this.http.get(this.url_token, null);
   }
   addBlog(blog,token){

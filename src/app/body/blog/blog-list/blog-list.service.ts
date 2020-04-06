@@ -7,8 +7,8 @@ import {HttpUtilService} from "../../../framework/service/http-util.service";
   providedIn: 'root'
 })
 export class BlogListService {
-  private url_list= Url.url + '/blog/findList';
-  private url_delete= Url.url + '/blog/delete';
+  private url_list='/blog/findList';
+  private url_delete='/blog/delete';
 
   constructor(private http: HttpUtilService) { }
   findList(tag:string,date:Date,page:number){

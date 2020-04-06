@@ -5,9 +5,9 @@ import {HttpUtilService} from "../../../framework/service/http-util.service";
 
 @Injectable()
 export class DetailService {
-  private url_list = Url.url + '/comment/find'
-  private url_add = Url.url + '/comment/add';
-  private url_delete = Url.url + '/comment/delete';
+  private url_list = '/comment/find'
+  private url_add = '/comment/add';
+  private url_delete = '/comment/delete';
   constructor(private http: HttpUtilService) {
   }
 

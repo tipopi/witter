@@ -30,13 +30,13 @@
               <input  formControlName="tagIn" type="text" class="form-control"  placeholder="标签不能超过10个字符"  />
             </div>
           </div>
-          <button type="button" nz-button nzType="tag-btn"  nzShape="round" (click)="addTag();">添加标签</button>
+          <button type="button" class="btn btn-success btn-round btn-sm" style="margin-right: 10px"  (click)="addTag();">添加标签</button>
           <nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of tags,let tagIndex = index">{{tag.name}}</nz-tag>
         </nz-form-control>
       </nz-form-item>
       <div class="footer">
         <button type="primary" nz-button nzType="add-btn" nzShape="round"><i nz-icon nzType="edit" nzTheme="outline"></i><span>{{isAdd?"发布":"编辑"}}</span></button>
-        <button type="button" nz-button  nzShape="round"  style="margin-left: 8px;" (click)="close(null)"><i nz-icon nzType="close" nzTheme="outline"></i><span>Cancel</span></button>
+        <button type="button" nz-button  nzShape="round"  style="margin-left: 8px;" (click)="close(null)"><i nz-icon nzType="close" nzTheme="outline"></i><span>关闭</span></button>
       </div>
     </form>
   </div>

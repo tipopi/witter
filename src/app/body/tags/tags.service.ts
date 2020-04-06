@@ -7,8 +7,8 @@ import {HttpUtilService} from "../../framework/service/http-util.service";
 
 @Injectable()
 export class TagsService {
-  private url_count = Url.url + '/tag/findCount';
-  private url_delete = Url.url + '/tag/delete';
+  private url_count ='/tag/findCount';
+  private url_delete ='/tag/delete';
 
 
   constructor(private http: HttpUtilService) {}

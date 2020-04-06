@@ -6,11 +6,11 @@
         <i nz-icon nzType="eye"  [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i> {{item.browse}}
       </ng-template>
       <ng-template #detail>
-        <button nz-button nzShape="round" nzType="detail-btn" (click)="detailShow(item)">文章详情</button>
+        <button class="btn btn-primary btn-round btn-sm" (click)="detailShow(item)">文章详情</button>
       </ng-template>
       <ng-template #delete>
         <button *ngIf="isPi"
-                nz-button nzType="danger"
+                class="btn btn-rose btn-round btn-sm"
                 nz-popconfirm
                 nzPopconfirmTitle="确定要删除吗"
                 nzPopconfirmPlacement="bottom"
@@ -26,7 +26,7 @@
       <ng-template #textRef>
         <span class="text" [innerHTML]="item.description"></span>
       </ng-template>
-      <ng-template #tags><nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of item.tags,let tagIndex = index">{{tag.name}}</nz-tag></ng-template>
+      <ng-template #tags><i nz-icon nzType="tag" nzTheme="outline"></i>: <nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of item.tags,let tagIndex = index">{{tag.name}}</nz-tag></ng-template>
     </nz-list-item>
       <nz-result  *ngIf="items.length==0" nzStatus="info" nzTitle="我莫得感情，也莫得数据"></nz-result>
     </div>

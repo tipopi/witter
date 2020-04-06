@@ -23,7 +23,7 @@
                         [tweetId]="item.tweetId"
                         [userId]="item.userId"
             ></app-detail>
-            <button *ngIf="dele" class="btn btn-rose btn-round" (click)="delete(item.tweetId)">删除</button>
+            <button *ngIf="dele" class="btn btn-rose btn-round btn-sm" (click)="delete(item.tweetId)">删除</button>
           </ng-template>
         </nz-list-item-meta>
       </nz-list-item>

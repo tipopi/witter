@@ -1,0 +1,23 @@
+<p>
+  现在的时间是：{{now|date:"yyyy-MM-dd hh:mm:ss"}}
+  <button class="time-btn" nz-button nzSize="small" nzType="danger" nzShape="circle" *ngIf="isRun else start" (click)="clearTimer()"><i nz-icon nzType="pause" nzTheme="outline"></i></button>
+  <ng-template #start>
+    <button class="time-btn" nz-button nzSize="small" nzShape="circle" (click)="startTimer()"><i nz-icon nzType="caret-right" nzTheme="outline"></i></button>
+  </ng-template>
+</p>
+<div class="time-row" nz-row nzType="flex" nzJustify="start" nzGutter="16">
+  <span nz-col >
+    时间->时间戳:
+  </span>
+  <input nz-col nzSpan="6" #t1>
+  <button class="time-btn" nz-col nzSpan="2" nzSize="small" nz-button  nzType="default" (click)="turn(t1.value)">转换<i nz-icon nzType="arrow-right" nzTheme="outline"></i></button>
+  <input readonly nz-col nzSpan="8" [value]="tr?tr:''">
+</div>
+<div class="time-row" nz-row nzType="flex" nzJustify="start" nzGutter="16">
+  <span nz-col>
+     时间戳->时间:
+  </span>
+  <input nz-col nzSpan="6" #t2>
+  <button class="time-btn" nz-col nzSpan="2" nzSize="small" nz-button  nzType="default" (click)="turn2(t2.value)">转换<i nz-icon nzType="arrow-right" nzTheme="outline"></i></button>
+  <input readonly nz-col nzSpan="8" [value]="tr2?tr2:''">
+</div>

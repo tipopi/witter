@@ -1,16 +1,16 @@
 <input class="nz" (click)="showModal()" nz-input placeholder="今天有什么新鲜事么" nzSize="default" />
 <nz-modal  [(nzVisible)]="isVisible" [nzTitle]="'想说什么'"  (nzOnCancel)="handleCancel()">
-  <div *ngIf="erro" class="alert alert-danger">
-    <div class="container">
-      <div class="alert-icon">
-        <i class="material-icons">error_outline</i>
-      </div>
-      <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true"><i class="material-icons">clear</i></span>
-      </button>
-      <b>Error Alert:</b> {{erro}}
-    </div>
-  </div>
+<!--  <div *ngIf="erro" class="alert alert-danger">-->
+<!--    <div class="container">-->
+<!--      <div class="alert-icon">-->
+<!--        <i class="material-icons">error_outline</i>-->
+<!--      </div>-->
+<!--      <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--        <span aria-hidden="true"><i class="material-icons">clear</i></span>-->
+<!--      </button>-->
+<!--      {{erro}}-->
+<!--    </div>-->
+<!--  </div>-->
 
   <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>{{userName}}&nbsp;:</p>
   <textarea wrap="hard"   rows="4" nz-input [(ngModel)]="inputValue"></textarea>
@@ -21,7 +21,7 @@
       <input type="text" class="form-control" [(ngModel)]="inputTag" placeholder="标签不能超过10个字符"  />
     </div>
   </div>
-  <button type="button" nz-button nzType="tag-btn"  nzShape="round" (click)="addTag();">添加标签</button>
+  <button type="button" class="btn btn-success btn-round btn-sm"  nzShape="round" (click)="addTag();">添加标签</button>
   <nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of tags,let tagIndex = index">{{tag.name}}</nz-tag>
 
   <div *nzModalFooter>

@@ -10,7 +10,7 @@
     </nz-card>
   </div>
   <div class="row">
-    <span style="margin-right: 10px"><strong>标签:</strong></span>
+    <span style="margin-right: 10px"><strong><i nz-icon nzType="tag" nzTheme="outline"></i>标签:</strong></span>
     <nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of item.tags,let tagIndex = index">{{tag.name}}</nz-tag>
   </div>
 </div>

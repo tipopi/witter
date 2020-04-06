@@ -6,6 +6,7 @@ import {Tag} from "../../../model/tag";
 import {UserService} from "../../../framework/service/user.service";
 import {ShowMsgService} from "../show-msg.service";
 import {TagMsgService} from "../../tags/tag-msg.service";
+import {NzMessageService} from "ng-zorro-antd";
 
 @Component({
   selector: 'app-tweet-add',
@@ -27,13 +28,13 @@ export class TweetAddComponent implements OnInit {
     [2,'blue'],
     [3,'volcano']
   ]);
-  erro: string='';
   user:number;
 
   constructor(private servic: TweetAddService,
               private userService:UserService,
               private showMsgService : ShowMsgService,
-              private tagMsgService:TagMsgService
+              private tagMsgService:TagMsgService,
+              private nzMessage:NzMessageService
               ) {
     this.userService.userObs$.subscribe(user=>this.user=user);
   }
@@ -44,10 +45,10 @@ export class TweetAddComponent implements OnInit {
 
   addTweet(){
     if(this.inputValue.length>255){
-      this.erro='字符不能超过255';
+      this.nzMessage.error('字符不能超过255');
       return;
     }else if(this.inputValue.length==0){
-      this.erro='不要发空气';
+      this.nzMessage.error('不要发空气');
       return;
     }
     let string = this.inputValue.replace(/\r\n/g,"<br>");
@@ -64,22 +65,24 @@ export class TweetAddComponent implements OnInit {
           }
         });
       }
-      this.handleCancel();
+      this.handleCancel(true);
     }
     );
   }
 
   addTag(){
     if(this.inputTag.length>10){
-      this.erro='字符不能超过10';
+      this.nzMessage.error('字符不能超过10');
       return;
     }else if(this.tags.length>=3){
-      this.erro='最多加三个标签';
+      this.nzMessage.error('最多加三个标签');
+      return;
+    }else if (this.inputTag.length == 0) {
       return;
     }
     for(let item of this.tags){
       if(item.name==this.inputTag){
-        this.erro='不要重复加标签';
+        this.nzMessage.error('不要重复加标签');
         return;
       }
     }
@@ -95,10 +98,13 @@ export class TweetAddComponent implements OnInit {
     });
   }
 
-  handleCancel(): void {
+  handleCancel(isAdd?:boolean): void {
     this.isVisible = false;
-    this.showMsgService.refreshList(true);
-    this.tagMsgService.freshTags();
+    if(isAdd){
+      this.showMsgService.refreshList(true);
+      this.tagMsgService.freshTags();
+    }
+
   }
 
   showModal(): void {
@@ -106,7 +112,6 @@ export class TweetAddComponent implements OnInit {
     this.tags=[];
     this.inputValue='';
     this.inputTag='';
-    this.erro='';
     if (this.user == 1) {
       this.userName = '痞老板';
       this.img = Img.img0;

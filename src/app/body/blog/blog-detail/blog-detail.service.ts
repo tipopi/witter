@@ -5,8 +5,8 @@ import {HttpUtilService} from "../../../framework/service/http-util.service";
 
 @Injectable()
 export class BlogDetailService {
-  private url_content=Url.url+"/blog/content";
-  private url_addBrowse=Url.url+"/blog/addBrowse";
+  private url_content="/blog/content";
+  private url_addBrowse="/blog/addBrowse";
   constructor(private http: HttpUtilService) { }
   getContent(id){
     const params=new HttpParams().set("blogId",id.toString());

@@ -9,6 +9,7 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js';
 import {NzMessageService} from "ng-zorro-antd";
 import {HttpClient} from "@angular/common/http";
 import { UserService } from 'src/app/framework/service/user.service';
+import {mergeMap} from "rxjs/operators";
 export class FileUploadAdapter{
   service:BlogAddService;
   constructor(private loader,private editor) {
@@ -16,17 +17,22 @@ export class FileUploadAdapter{
   }
 
   upload() {
-    return new Promise((resolve, reject) => {
-      this.service.getContent(1)
-        .subscribe(
-          (resp:any) => {
-            console.log(resp)
-            resolve({
-              default: resp.url
-            });
-          },
-          (err) => reject(err));
-    });
+    return this.loader.file
+      .then( file => {
+        return new Promise((resolve, reject) => {
+           this.service.getToken().pipe(mergeMap((res: any) => {
+            return this.service.upload(file, res.token);
+          })).subscribe(
+             (resp: any) => {
+               this.service.putImg(resp.key);
+               resolve({
+                 default: "http://q6oagnj2q.bkt.clouddn.com/"+resp.key
+               });
+             },
+             (err) => reject(err));
+
+        });
+      })
   }
 
   abort() {
@@ -55,6 +61,7 @@ export class BlogAddComponent implements OnInit {
   isAdd=false;
   group:FormGroup;
   tags:Tag[]=[];
+  imgKeys:string[]=[];
   tagColor=new Map([
     [0,'magenta'],
     [1,'purple'],
@@ -75,7 +82,11 @@ export class BlogAddComponent implements OnInit {
       extraPlugins: [CustomUploadAdapterPlugin]
     };
     this.userService.tokenObs$.subscribe(token=>this.token=token);
+    this.service.imgObs$.subscribe(key=>{
+      this.imgKeys.push(key);
+    })
   }
+
   setEditForm(){
     this.group=this.fb.group({
       content: [this.item.content,Validators.required],
@@ -128,27 +139,28 @@ export class BlogAddComponent implements OnInit {
     }
     const blog={
       ...this.group.value,
-      tags:this.tags
+      tags:this.tags,
+      images:this.imgKeys
     };
     if(this.isAdd){
       this.service.addBlog(blog,this.token).subscribe((result:any)=>{
-        if(result.meta.code==1){
+        if(result){
           this.close();
-          this.userService.setToken(result.meta.token);
           this.nzMessage.info("发布成功");
         }else {
           this.nzMessage.error("服务器错误");
         }
+        this.userService.setToken(result.meta.token);
       });
     }else {
       this.service.updateBlog(this.compare(blog)).subscribe((result : any) => {
-        if(result.meta.code==1){
+        if(result){
             this.close(result.data);
-            this.userService.setToken(result.meta.token);
             this.nzMessage.info("编辑成功");
         }else {
           this.nzMessage.error("服务器错误");
         }
+        this.userService.setToken(result.meta.token);
       });
     }
   }

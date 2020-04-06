@@ -1,6 +1,6 @@
 <nz-drawer
   *ngIf="visible"
-  [nzMaskClosable]="index==0"
+  [nzMaskClosable]="index==0&&!isAdd"
   [nzVisible]="visible"
   nzPlacement="right"
   [nzTitle]="isAdd?'添加文章':item.title"
@@ -8,7 +8,7 @@
   (nzOnClose)="close()"
 >
 <div class="detail-fa">
-<nz-tabset *ngIf="isPi&&!isAdd" [(nzSelectedIndex)]="index">
+<nz-tabset *ngIf="isPi&&!isAdd" nzTabPosition="right" [(nzSelectedIndex)]="index">
 <nz-tab nzTitle="详情">
   <ng-template nz-tab>
     <app-blog-detail-show [item]="item"></app-blog-detail-show>

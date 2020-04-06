@@ -25,6 +25,8 @@ import { BlogAddComponent } from './blog/blog-detail/blog-add/blog-add.component
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 import { BlogDetailShowComponent } from './blog/blog-detail/blog-detail-show/blog-detail-show.component';
+import {ToolboxModule} from "./toolbox/toolbox.module";
+import {BoxComponent} from "./toolbox/box/box.component";
 
 
 @NgModule({
@@ -42,6 +44,10 @@ import { BlogDetailShowComponent } from './blog/blog-detail/blog-detail-show/blo
     BlogAddComponent,
     BlogDetailComponent,
     BlogDetailShowComponent,
+
+  ],
+  exports: [
+    PanelComponent
   ],
 
   imports: [
@@ -58,6 +64,7 @@ import { BlogDetailShowComponent } from './blog/blog-detail/blog-detail-show/blo
     CKEditorModule,
     ReactiveFormsModule,
     ScrollingModule, DragDropModule,
+    ToolboxModule,
     BodyRoutingModule,
   ]
 })

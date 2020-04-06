@@ -5,14 +5,8 @@ import {RouterModule, Routes} from "@angular/router";
 import {PanelComponent} from './panel/panel.component';
 import {BlogComponent} from './blog/blog.component'
 import {ShowComponent} from "./show/show.component";
+import {BoxComponent} from "./toolbox/box/box.component";
 export const ROUTES: Routes=[
-  {
-    path: '', redirectTo:'panel',pathMatch: 'full'
-  },
-  {
-    path:'panel',
-    component: PanelComponent,
-    children:[
       {
         path:'',
         redirectTo: 'tweet',
@@ -23,17 +17,16 @@ export const ROUTES: Routes=[
       },
       {
         path:'blog',component: BlogComponent
-      }
-    ]
-  },
+      },
+      {
 
+        path:'tool',loadChildren:() => import('./toolbox/toolbox.module').then(m => m.ToolboxModule)
+      }
 ];
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-    BrowserModule,
     RouterModule.forChild(ROUTES)
   ],
   exports: [RouterModule]

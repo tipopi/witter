@@ -1,15 +1,15 @@
-<a (click)="showModal()"> <i class="material-icons">account_circle</i></a>
+<a (click)="showModal()"> <i nz-icon nzType="user" nzTheme="outline"></i></a>
 <nz-modal [nzWidth]="400" [(nzVisible)]="isVisible" nzTitle="管理员登陆"  (nzOnCancel)="handleCancel()">
   <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
     <div *ngIf="erro" class="alert alert-danger">
       <div class="container">
         <div class="alert-icon">
-          <i class="material-icons">error_outline</i>
+          <i nz-icon nzType="bug" nzTheme="outline"></i>
         </div>
         <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true"><i class="material-icons">clear</i></span>
+          <span aria-hidden="true"><i nz-icon nzType="close" nzTheme="outline"></i></span>
         </button>
-        <b>Error Alert:</b> {{msg}}
+              {{msg}}
       </div>
     </div>
 
@@ -17,7 +17,7 @@
       <div class="input-group col-lg-10 col-sm-4">
         <div class="input-group-prepend">
           <span class="input-group-text">
-           <i class="material-icons">face</i>
+           <i nz-icon nzType="book" nzTheme="outline"></i>
           </span>
         </div>
         <input class="form-control"
@@ -32,7 +32,7 @@
       <div class="input-group col-lg-10 col-sm-4">
         <div class="input-group-prepend">
           <span class="input-group-text">
-            <i class="material-icons">lock_outline</i>
+            <i nz-icon nzType="lock" nzTheme="outline"></i>
           </span>
         </div>
         <input class="form-control"

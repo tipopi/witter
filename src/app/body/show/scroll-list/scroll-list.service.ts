@@ -7,10 +7,10 @@ import {HttpUtilService} from "../../../framework/service/http-util.service";
   providedIn: 'root'
 })
 export class ScrollListService {
-  private url_all = Url.url + '/tweet/findList';
-  private url_by_tag = Url.url + '/tweet/findByTag';
-  private url_power = Url.url + '/tweet/addPower';
-  private url_delete = Url.url + '/tweet/delete';
+  private url_all = '/tweet/findList';
+  private url_by_tag = '/tweet/findByTag';
+  private url_power = '/tweet/addPower';
+  private url_delete = '/tweet/delete';
   constructor(private http: HttpUtilService) { }
   findAll(tag: string,date: Date,page:number){
     if(tag=="all"){

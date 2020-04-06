@@ -30,7 +30,7 @@ export class BlogDetailComponent implements OnInit {
         this.item={...item};
         this.service.addBrowse(item.blogId).subscribe();
         this.service.getContent(item.blogId).subscribe((result:any)=>{
-          if(result.meta.code==1){
+          if(result){
             this.item.content=result.data.content;
             this.item.tags=result.data.tags;
           }

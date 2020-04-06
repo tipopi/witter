@@ -86,9 +86,9 @@ export class BlogListComponent implements OnInit {
   }
   deleteBlog(blogId){
     this.service.deleteBlog(blogId,this.token).subscribe((result:any)=>{
-      if(result.meta.code==1){
+      if(result){
         this.nzMessageService.info("删除成功");
-        this.userService.setToken(result.meta.token);
+        // this.userService.setToken(result.meta.token);
         this.scrollService.refreshData(this.handle,true);
         this.tagsService.freshTags();
       }else {
