@@ -5,6 +5,7 @@ import {JsonUtilComponent} from "./json-util/json-util.component";
 import {TimeUtilComponent} from "./time-util/time-util.component";
 import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
+import {TranslateComponent} from "./translate/translate.component";
 
 
 const routes: Routes = [
@@ -22,8 +23,12 @@ const routes: Routes = [
         component:TimeUtilComponent
       },
       {
+        path: "trans",
+        component: TranslateComponent
+      },
+      {
         path:'',
-        redirectTo: 'json',
+        redirectTo: 'trans',
         pathMatch: 'full'
       },
     ]

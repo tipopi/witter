@@ -9,10 +9,11 @@ import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgZorroAntdModule} from "ng-zorro-antd";
+import { TranslateComponent } from './translate/translate.component';
 
 
 @NgModule({
-  declarations: [BoxComponent,JsonUtilComponent, TimeUtilComponent],
+  declarations: [BoxComponent,JsonUtilComponent, TimeUtilComponent, TranslateComponent],
   imports: [
     CommonModule,
     NgZorroAntdModule,

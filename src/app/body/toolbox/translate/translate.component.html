@@ -1,0 +1,39 @@
+<div nz-row nzType="flex" nzJustify="center" nzAlign="middle">
+  <div  nz-col nzSpan="8">
+    <nz-select class="tran-select" [(ngModel)]="from" >
+      <nz-option nzValue="auto" nzLabel="自动检测"></nz-option>
+      <nz-option nzValue="zh" nzLabel="简体中文"></nz-option>
+      <nz-option nzValue="en" nzLabel="英语"></nz-option>
+      <nz-option nzValue="jp" nzLabel="日语"></nz-option>
+    </nz-select>
+    <textarea
+      nz-input
+      placeholder="请输入待翻译文本"
+      [(ngModel)]="input"
+      class="card"
+      [nzAutosize]="{ minRows: 30, maxRows: 50 }"
+    ></textarea>
+  </div>
+  <div class="btn-div" nz-col nzSpan="2">
+    <button nzType="primary" nz-button class="swap" (click)="change()" > <i nz-icon nzType="swap" nzTheme="outline"></i></button>
+    <button nzType="danger" nz-button class="change"  (click)="trans()">翻译<i nz-icon nzType="arrow-right" nzTheme="outline"></i></button>
+  </div>
+
+<div   nz-col nzSpan="8">
+  <nz-select class="tran-select" [(ngModel)]="to">
+    <nz-option nzValue="zh" nzLabel="简体中文"></nz-option>
+    <nz-option nzValue="en" nzLabel="英语"></nz-option>
+    <nz-option nzValue="jp" nzLabel="日语"></nz-option>
+  </nz-select>
+
+  <textarea
+    nz-input
+    class="card"
+    readonly
+    [nzAutosize]="{ minRows: 30, maxRows: 50 }"
+  >
+    {{result}}
+  </textarea>
+</div>
+
+</div>

@@ -36,7 +36,7 @@
         </ng-template>
       </nz-list-item-meta>
     </nz-list-item>
-      <nz-result  *ngIf="items.length==0" nzStatus="info" nzTitle="我莫得感情，也莫得数据"></nz-result>
+      <nz-result  *ngIf="!items||items.length==0" nzStatus="info" nzTitle="我莫得感情，也莫得数据"></nz-result>
     </div>
   </nz-list>
 </cdk-virtual-scroll-viewport>
