@@ -1,38 +1,41 @@
-
-
-<nz-modal  [(nzVisible)]="isVisible" [nzTitle]="userName+'的推文'"  (nzOnCancel)="handleCancel()">
-  <div *ngIf="erro" class="alert alert-danger">
+<nz-modal (nzOnCancel)="handleCancel()" [(nzVisible)]="isVisible" [nzTitle]="userName+'的推文'">
+  <div *ngIf="erro!==''" class="alert alert-danger">
     <div class="container">
       <div class="alert-icon">
         <i class="material-icons">error_outline</i>
       </div>
-      <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button (click)="erro=''" aria-label="Close" class="close" data-dismiss="alert" type="button">
         <span aria-hidden="true"><i class="material-icons">clear</i></span>
       </button>
       <b>Error Alert:</b> {{erro}}
     </div>
   </div>
-  <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>&nbsp;:&nbsp;</p>
+  <p>
+    <nz-avatar [nzSrc]="img" nzIcon="user"></nz-avatar>&nbsp;:&nbsp;
+  </p>
   <span [innerHTML]="text"></span>
   <p class="time">{{createTime | date:'yyyy年:MM月:dd日'}}</p>
   <nz-divider *ngIf="isVisible" nzText="评论"></nz-divider>
 
-     <div  *ngFor="let item of coms">
-       <p><nz-avatar nzIcon="user" [nzSrc]="item.userId== 0?img0:img1"></nz-avatar> {{item.userId==0?'痞老板':'游客'}}</p>
-       <p>{{item.text}}</p>
-       <button class="btn btn-rose btn-round" (click)="deleteCom(item.id)" *ngIf="dele">删除</button><li class="time">{{item.createTime | date:'yyyy年:MM月:dd日'}}</li>
-       <nz-divider></nz-divider>
-     </div>
-  <textarea placeholder="评论内容" rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  <div *ngFor="let item of coms">
+    <p>
+      <nz-avatar [nzSrc]="item.userId== 1?img0:img1" nzIcon="user"></nz-avatar>
+      {{item.userId == 1 ? '痞老板' : '游客'}}</p>
+    <p>{{item.text}}</p>
+    <button (click)="deleteCom(item.id)" *ngIf="user==1" class="btn btn-rose btn-round">删除</button>
+    <li class="time">{{item.createTime | date:'yyyy年:MM月:dd日'}}</li>
+    <nz-divider></nz-divider>
+  </div>
+  <textarea [(ngModel)]="inputValue" nz-input placeholder="评论内容" rows="4"></textarea>
 
   <div *nzModalFooter>
     <p class="flex">
-      <button nz-button nzType="primary" (click)="addCom()"><i nz-icon nzType="plus" nzTheme="outline"></i>发表评论</button>
-      <button nz-button (click)="handleCancel()"><i nz-icon nzType="close" nzTheme="outline"></i>关闭</button>
+      <button (click)="addCom()" nz-button nzType="primary"><i nz-icon nzTheme="outline" nzType="plus"></i>发表评论</button>
+      <button (click)="handleCancel()" nz-button><i nz-icon nzTheme="outline" nzType="close"></i>关闭</button>
     </p>
 
   </div>
 </nz-modal>
-<button  (click)="showModal()" class="btn btn-primary btn-round btn-sm"  >推文详情
+<button (click)="showModal()" class="btn btn-primary btn-round btn-sm">推文详情
 </button>
 

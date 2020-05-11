@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DateService} from './date.service';
 
 @Component({
@@ -8,7 +8,8 @@ import {DateService} from './date.service';
 })
 export class DateComponent implements OnInit {
 
-  constructor(private service: DateService) { }
+  constructor(private service: DateService) {
+  }
 
   ngOnInit() {
   }

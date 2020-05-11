@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable,merge,pipe,fromEvent,of } from 'rxjs';
-import { map, filter, debounceTime, distinct, mergeMap, tap} from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, fromEvent, merge, Observable} from 'rxjs';
+import {debounceTime, distinct, filter, map, mergeMap, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -52,13 +52,14 @@ export class InfiniteScrollListService {
     this.dataSource$ = dataSource;
     return this.itemResults$;
   }
-  public getItemObservableSet(dataSource: Observable<any>,itemHeight:number,itemNumber:number) {
-    this.itemHeight=itemHeight;
-    this.numberOfItems=itemNumber;
+
+  public getItemObservableSet(dataSource: Observable<any>, itemHeight: number, itemNumber: number) {
+    this.itemHeight = itemHeight;
+    this.numberOfItems = itemNumber;
     return this.getItemObservable(dataSource);
   }
 
-  public setPage(page:number){
+  public setPage(page: number) {
     this.pageByManual$.next(page);
   }
 }

@@ -1,22 +1,27 @@
-import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private user=new BehaviorSubject(0);
-  private token=new BehaviorSubject("");
-  userObs$=this.user.asObservable();
-  tokenObs$=this.token.asObservable();
-  constructor() { }
-  login(){
+  private user = new BehaviorSubject<number>(0);
+  userObs$ = this.user.asObservable();
+  private token = new BehaviorSubject("");
+  tokenObs$ = this.token.asObservable();
+
+  constructor() {
+  }
+
+  login() {
     this.user.next(1);
   }
-  logout(){
+
+  logout() {
     this.user.next(0);
   }
-  setToken(token:string){
+
+  setToken(token: string) {
     this.token.next(token);
   }
 }

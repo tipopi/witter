@@ -1,31 +1,34 @@
-<input class="nz" (click)="showModal()" nz-input placeholder="今天有什么新鲜事么" nzSize="default" />
-<nz-modal  [(nzVisible)]="isVisible" [nzTitle]="'想说什么'"  (nzOnCancel)="handleCancel()">
-<!--  <div *ngIf="erro" class="alert alert-danger">-->
-<!--    <div class="container">-->
-<!--      <div class="alert-icon">-->
-<!--        <i class="material-icons">error_outline</i>-->
-<!--      </div>-->
-<!--      <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--        <span aria-hidden="true"><i class="material-icons">clear</i></span>-->
-<!--      </button>-->
-<!--      {{erro}}-->
-<!--    </div>-->
-<!--  </div>-->
+<input (click)="showModal()" class="nz" nz-input nzSize="default" placeholder="今天有什么新鲜事么"/>
+<nz-modal (nzOnCancel)="handleCancel()" [(nzVisible)]="isVisible" [nzTitle]="'想说什么'">
+  <!--  <div *ngIf="erro" class="alert alert-danger">-->
+  <!--    <div class="container">-->
+  <!--      <div class="alert-icon">-->
+  <!--        <i class="material-icons">error_outline</i>-->
+  <!--      </div>-->
+  <!--      <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+  <!--        <span aria-hidden="true"><i class="material-icons">clear</i></span>-->
+  <!--      </button>-->
+  <!--      {{erro}}-->
+  <!--    </div>-->
+  <!--  </div>-->
 
-  <p><nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>{{userName}}&nbsp;:</p>
-  <textarea wrap="hard"   rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  <p>
+    <nz-avatar [nzSrc]="img" nzIcon="user"></nz-avatar>
+    {{userName}}&nbsp;:
+  </p>
+  <textarea [(ngModel)]="inputValue" nz-input rows="4" wrap="hard"></textarea>
   <nz-divider></nz-divider>
 
   <div class="col-lg-5 col-sm-4">
     <div class="form-group has-default">
-      <input type="text" class="form-control" [(ngModel)]="inputTag" placeholder="标签不能超过10个字符"  />
+      <input [(ngModel)]="inputTag" class="form-control" placeholder="标签不能超过10个字符" type="text"/>
     </div>
   </div>
-  <button type="button" class="btn btn-success btn-round btn-sm"  nzShape="round" (click)="addTag();">添加标签</button>
-  <nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of tags,let tagIndex = index">{{tag.name}}</nz-tag>
+  <button (click)="addTag();" class="btn btn-success btn-round btn-sm" nzShape="round" type="button">添加标签</button>
+  <nz-tag *ngFor="let tag of tags,let tagIndex = index" [nzColor]="tagColor.get(tagIndex)">{{tag.name}}</nz-tag>
 
   <div *nzModalFooter>
-    <button nz-button nzType="primary" (click)="addTweet()"><i nz-icon nzType="plus" nzTheme="outline"></i>发推</button>
-    <button nz-button  (click)="handleCancel()"><i nz-icon nzType="close" nzTheme="outline"></i>关闭</button>
+    <button (click)="addTweet()" nz-button nzType="primary"><i nz-icon nzTheme="outline" nzType="plus"></i>发推</button>
+    <button (click)="handleCancel()" nz-button><i nz-icon nzTheme="outline" nzType="close"></i>关闭</button>
   </div>
 </nz-modal>

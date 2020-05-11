@@ -1,13 +1,12 @@
-
-<div nz-row nzType="flex" nzJustify="start" nzAlign="top">
-      <div nz-col nzSpan="4">
-        <button class="btn btn-info " [routerLink]="['./tweet']" routerLinkActive="active">推文</button>
-        <br>
-        <button class="btn btn-primary "  [routerLink]="['./blog']" routerLinkActive="active">文章</button>
-        <br/>
-        <button class="btn btn-success "  [routerLink]="['./tool']" routerLinkActive="active">工具</button>
-      </div>
-  <div  nz-col nzSpan="4">
+<div nz-row nzAlign="top" nzJustify="start" nzType="flex">
+  <div nz-col nzSpan="4">
+    <button [routerLink]="['./tweet']" class="btn btn-info " routerLinkActive="active">推文</button>
+    <br>
+    <button [routerLink]="['./blog']" class="btn btn-primary " routerLinkActive="active">文章</button>
+    <br/>
+    <button [routerLink]="['./tool']" class="btn btn-success " routerLinkActive="active">工具</button>
+  </div>
+  <div nz-col nzSpan="4">
     <router-outlet></router-outlet>
   </div>
 

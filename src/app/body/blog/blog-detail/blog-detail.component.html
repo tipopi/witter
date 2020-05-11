@@ -1,27 +1,27 @@
 <nz-drawer
+  (nzOnClose)="close()"
   *ngIf="visible"
   [nzMaskClosable]="index==0&&!isAdd"
-  [nzVisible]="visible"
-  nzPlacement="right"
   [nzTitle]="isAdd?'添加文章':item.title"
+  [nzVisible]="visible"
   [nzWidth]="1000"
-  (nzOnClose)="close()"
+  nzPlacement="right"
 >
-<div class="detail-fa">
-<nz-tabset *ngIf="isPi&&!isAdd" nzTabPosition="right" [(nzSelectedIndex)]="index">
-<nz-tab nzTitle="详情">
-  <ng-template nz-tab>
-    <app-blog-detail-show [item]="item"></app-blog-detail-show>
-  </ng-template>
-</nz-tab>
-  <nz-tab nzTitle="编辑">
-    <ng-template nz-tab>
-      <app-blog-add (closeWindow)="change($event)" [item]="item" ></app-blog-add>
-    </ng-template>
-  </nz-tab>
-</nz-tabset>
+  <div class="detail-fa">
+    <nz-tabset *ngIf="isPi&&!isAdd" [(nzSelectedIndex)]="index" nzTabPosition="right">
+      <nz-tab nzTitle="详情">
+        <ng-template nz-tab>
+          <app-blog-detail-show [item]="item"></app-blog-detail-show>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="编辑">
+        <ng-template nz-tab>
+          <app-blog-add (closeWindow)="change($event)" [item]="item"></app-blog-add>
+        </ng-template>
+      </nz-tab>
+    </nz-tabset>
 
-<app-blog-add (closeWindow)="change()" [item]="item" *ngIf="isAdd"></app-blog-add>
-  <app-blog-detail-show *ngIf="!isPi&&!isAdd" [item]="item"></app-blog-detail-show>
-</div>
+    <app-blog-add (closeWindow)="change()" *ngIf="isAdd" [item]="item"></app-blog-add>
+    <app-blog-detail-show *ngIf="!isPi&&!isAdd" [item]="item"></app-blog-detail-show>
+  </div>
 </nz-drawer>

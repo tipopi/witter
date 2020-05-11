@@ -1,34 +1,39 @@
-<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr"   itemSize="option.itemHeight" minBufferPx="200" maxBufferPx="400">
+<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr" itemSize="option.itemHeight" maxBufferPx="400"
+                             minBufferPx="200">
   <nz-list [nzItemLayout]="'vertical'">
     <div *ngIf="item$| async let items">
-    <nz-list-item *cdkVirtualFor="let item of items" [nzContent]="textRef" [nzActions]="[power,detail,delete]">
-      <ng-template #power>
-        <i nz-icon nzType="eye"  [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i> {{item.browse}}
-      </ng-template>
-      <ng-template #detail>
-        <button class="btn btn-primary btn-round btn-sm" (click)="detailShow(item)">文章详情</button>
-      </ng-template>
-      <ng-template #delete>
-        <button *ngIf="isPi"
-                class="btn btn-rose btn-round btn-sm"
-                nz-popconfirm
-                nzPopconfirmTitle="确定要删除吗"
-                nzPopconfirmPlacement="bottom"
-                (nzOnConfirm)="deleteBlog(item.blogId)"
-                nzShape="round">删除</button>
-      </ng-template>
+      <nz-list-item *cdkVirtualFor="let item of items" [nzActions]="[power,detail,delete]" [nzContent]="textRef">
+        <ng-template #power>
+          <i [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'" nz-icon nzType="eye"></i> {{item.browse}}
+        </ng-template>
+        <ng-template #detail>
+          <button (click)="detailShow(item)" class="btn btn-primary btn-round btn-sm">文章详情</button>
+        </ng-template>
+        <ng-template #delete>
+          <button (nzOnConfirm)="deleteBlog(item.blogId)"
+                  *ngIf="isPi"
+                  class="btn btn-rose btn-round btn-sm"
+                  nz-popconfirm
+                  nzPopconfirmPlacement="bottom"
+                  nzPopconfirmTitle="确定要删除吗"
+                  nzShape="round">删除
+          </button>
+        </ng-template>
 
 
-      <nz-list-item-meta
-        [nzTitle]="item.title"
-        [nzDescription]="tags">
-      </nz-list-item-meta>
-      <ng-template #textRef>
-        <span class="text" [innerHTML]="item.description"></span>
-      </ng-template>
-      <ng-template #tags><i nz-icon nzType="tag" nzTheme="outline"></i>: <nz-tag [nzColor]="tagColor.get(tagIndex)" *ngFor="let tag of item.tags,let tagIndex = index">{{tag.name}}</nz-tag></ng-template>
-    </nz-list-item>
-      <nz-result  *ngIf="items.length==0" nzStatus="info" nzTitle="我莫得感情，也莫得数据"></nz-result>
+        <nz-list-item-meta
+          [nzDescription]="tags"
+          [nzTitle]="item.title">
+        </nz-list-item-meta>
+        <ng-template #textRef>
+          <span [innerHTML]="item.description" class="text"></span>
+        </ng-template>
+        <ng-template #tags><i nz-icon nzTheme="outline" nzType="tag"></i>:
+          <nz-tag *ngFor="let tag of item.tags,let tagIndex = index"
+                  [nzColor]="tagColor.get(tagIndex)">{{tag.name}}</nz-tag>
+        </ng-template>
+      </nz-list-item>
+      <nz-result *ngIf="items.length==0" nzStatus="info" nzTitle="我莫得感情，也莫得数据"></nz-result>
     </div>
   </nz-list>
 </cdk-virtual-scroll-viewport>

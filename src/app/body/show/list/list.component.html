@@ -1,21 +1,21 @@
-
 <div>
-  <cdk-virtual-scroll-viewport itemSize="73" class="demo-infinite-container">
+  <cdk-virtual-scroll-viewport class="demo-infinite-container" itemSize="73">
     <nz-list>
-      <nz-list-item *cdkVirtualFor="let item of ds" >
+      <nz-list-item *cdkVirtualFor="let item of ds">
         <nz-skeleton *ngIf="!item" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
         <nz-list-item-meta
           *ngIf="item"
-          [nzTitle]="nzTitle"
           [nzAvatar]="item.userId==0?img0:img1"
           [nzDescription]="nzDes"
+          [nzTitle]="nzTitle"
         >
           <ng-template #nzTitle>
-            {{item.userId==0?'痞老板':'水友'}}
+            {{item.userId == 0 ? '痞老板' : '水友'}}
           </ng-template>
           <ng-template #nzDes>
             <span [innerHTML]="item.text"></span><br>
-            <button class="btn btn-info btn-round" (click)="addPower(item.tweetId,item.power+1);item.power=item.power+1">
+            <button (click)="addPower(item.tweetId,item.power+1);item.power=item.power+1"
+                    class="btn btn-info btn-round">
               <i class="material-icons">favorite</i>  {{item.power}}
             </button>
             <app-detail [createTime]="item.createTime"
@@ -23,7 +23,7 @@
                         [tweetId]="item.tweetId"
                         [userId]="item.userId"
             ></app-detail>
-            <button *ngIf="dele" class="btn btn-rose btn-round btn-sm" (click)="delete(item.tweetId)">删除</button>
+            <button (click)="delete(item.tweetId)" *ngIf="dele" class="btn btn-rose btn-round btn-sm">删除</button>
           </ng-template>
         </nz-list-item-meta>
       </nz-list-item>

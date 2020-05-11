@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams,HttpHeaders} from '@angular/common/http';
-import {Url} from "../../../model/url";
+import {HttpParams} from '@angular/common/http';
 import {HttpUtilService} from "../../../framework/service/http-util.service";
 
 @Injectable()
@@ -8,6 +7,7 @@ export class DetailService {
   private url_list = '/comment/find'
   private url_add = '/comment/add';
   private url_delete = '/comment/delete';
+
   constructor(private http: HttpUtilService) {
   }
 
@@ -18,12 +18,13 @@ export class DetailService {
 
   addCom(userId, href, type, text) {
     return this.http.post(this.url_add,
-    {
-      userId, href, text, type
-    });
+      {
+        userId, href, text, type
+      });
   }
-  deleteCom(id,token){
-    return this.http.delete(this.url_delete,new HttpParams().set("id", id));
+
+  deleteCom(id) {
+    return this.http.delete(this.url_delete, new HttpParams().set("id", id));
   }
 
 }

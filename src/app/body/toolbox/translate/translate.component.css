@@ -1,20 +1,24 @@
-.card{
+.card {
   width: 400px;
   height: 640px;
 }
-.change{
+
+.change {
   margin-top: 300px;
   margin-left: 10px;
   margin-right: 10px;
 }
-.swap{
+
+.swap {
   width: 82px;
   margin-left: 10px;
   margin-right: 10px;
 }
-.tran-select{
+
+.tran-select {
   width: 100%;
 }
-.btn-div{
+
+.btn-div {
   height: 670px;
 }

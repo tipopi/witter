@@ -1,10 +1,12 @@
-.btn{
+.btn {
   width: 100px;
 }
-.content{
+
+.content {
   height: 380px;
 }
-.lable{
+
+.lable {
   display: block;
   height: 30px;
   width: 80px;

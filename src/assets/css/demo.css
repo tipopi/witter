@@ -242,6 +242,7 @@
     height: 640px;
     overflow: hidden;
   }
+
   .parallax .parallax-image img {
     height: 100%;
     width: auto;
@@ -312,6 +313,7 @@
   .btn-morphing {
     margin-bottom: 10px;
   }
+
   .parallax .motto {
     top: 170px;
     margin-top: 0;
@@ -471,8 +473,8 @@
   margin-top: 30px;
 }
 
-.components-page .wrapper>.header,
-.tutorial-page .wrapper>.header {
+.components-page .wrapper > .header,
+.tutorial-page .wrapper > .header {
   height: 400px;
   padding-top: 100px;
   background-size: cover;
@@ -635,7 +637,7 @@
   margin-bottom: 5px;
 }
 
-.section-content .section-description .title+.description {
+.section-content .section-description .title + .description {
   margin-top: 0;
 }
 

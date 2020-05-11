@@ -1,42 +1,45 @@
-<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr"   itemSize="option.itemHeight" minBufferPx="200" maxBufferPx="400">
+<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr" itemSize="option.itemHeight" maxBufferPx="400"
+                             minBufferPx="200">
   <nz-list [nzItemLayout]="'vertical'">
     <div *ngIf="item$| async let items">
-    <nz-list-item *cdkVirtualFor="let item of items" [nzActions]="[power,detail,delete]">
+      <nz-list-item *cdkVirtualFor="let item of items" [nzActions]="[power,detail,delete]">
 
-      <ng-template #power>
-        <button nz-button nzGhost nzType="primary"  nzShape="round" (click)="addPower(item.tweetId,item.power+1);item.power=item.power+1">
-          <i nz-icon  [nzType]="'heart'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i>
-          <span>{{item.power}}</span>
-        </button>
+        <ng-template #power>
+          <button (click)="addPower(item.tweetId,item.power+1);item.power=item.power+1" nz-button nzGhost nzShape="round"
+                  nzType="primary">
+            <i [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'" [nzType]="'heart'" nz-icon></i>
+            <span>{{item.power}}</span>
+          </button>
 
-      </ng-template>
-      <ng-template #detail>
-        <app-detail [createTime]="item.createTime"
-                    [text]="item.text"
-                    [tweetId]="item.tweetId"
-                    [userId]="item.userId"
-        ></app-detail>
-      </ng-template>
-      <ng-template #delete>
-          <button nz-button nzType="danger"  nzShape="round"
-                  *ngIf="isPi"
-                  nz-popconfirm
-                  nzPopconfirmTitle="确定要删除吗"
-                  nzPopconfirmPlacement="bottom"
-                  (nzOnConfirm)="deleteTweet(item.tweetId)">删除</button>
-      </ng-template>
-
-      <nz-list-item-meta
-        [nzTitle]="item.userId!=0?'痞老板':'游客'"
-        [nzAvatar]="item.userId!=0?img0:img1"
-        [nzDescription]="textRef"
-      >
-        <ng-template #textRef>
-          <span [innerHTML]="item.text"></span>
         </ng-template>
-      </nz-list-item-meta>
-    </nz-list-item>
-      <nz-result  *ngIf="!items||items.length==0" nzStatus="info" nzTitle="我莫得感情，也莫得数据"></nz-result>
+        <ng-template #detail>
+          <app-detail [createTime]="item.createTime"
+                      [text]="item.text"
+                      [tweetId]="item.tweetId"
+                      [userId]="item.userId"
+          ></app-detail>
+        </ng-template>
+        <ng-template #delete>
+          <button (nzOnConfirm)="deleteTweet(item.tweetId)" *ngIf="isPi" nz-button
+                  nz-popconfirm
+                  nzPopconfirmPlacement="bottom"
+                  nzPopconfirmTitle="确定要删除吗"
+                  nzShape="round"
+                  nzType="danger">删除
+          </button>
+        </ng-template>
+
+        <nz-list-item-meta
+          [nzAvatar]="item.userId!=0?img0:img1"
+          [nzDescription]="textRef"
+          [nzTitle]="item.userId!=0?'痞老板':'游客'"
+        >
+          <ng-template #textRef>
+            <span [innerHTML]="item.text"></span>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+      <nz-result *ngIf="!items||items.length==0" nzStatus="info" nzTitle="我莫得感情，也莫得数据"></nz-result>
     </div>
   </nz-list>
 </cdk-virtual-scroll-viewport>

@@ -1,23 +1,26 @@
-<div nz-row nzType="flex" nzJustify="center" nzAlign="middle">
+<div nz-row nzAlign="middle" nzJustify="center" nzType="flex">
 
 <textarea
-  nz-input
-  nz-col nzSpan="8"
-  placeholder="输入待格式化json"
   [(ngModel)]="in"
-  class="card"
-  [nzAutosize]="{ minRows: 30, maxRows: 50 }"
+  [nzAutosize]="{ minRows: 30, maxRows: 50 }" class="card"
+  nz-col
+  nz-input
+  nzSpan="8"
+  placeholder="输入待格式化json"
 ></textarea>
 
 
-<button nz-col nzSpan="2" nzType="danger" nz-button class="change"   (click)="change()">格式化<i nz-icon nzType="arrow-right" nzTheme="outline"></i></button>
+  <button (click)="change()" class="change" nz-button nz-col nzSpan="2" nzType="danger">格式化<i nz-icon
+                                                                                              nzTheme="outline"
+                                                                                              nzType="arrow-right"></i>
+  </button>
   <textarea
-    nz-input
-    nz-col nzSpan="8"
-    class="card"
     [ngStyle]="{color:error?'red':''}"
+    [nzAutosize]="{ minRows: 30, maxRows: 50 }" class="card"
+    nz-col
+    nz-input
+    nzSpan="8"
     readonly
-    [nzAutosize]="{ minRows: 30, maxRows: 50 }"
   >{{result}}
   </textarea>
 </div>

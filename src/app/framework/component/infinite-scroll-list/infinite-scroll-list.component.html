@@ -1,7 +1,8 @@
-<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr"   itemSize="itemHeight" minBufferPx="200" maxBufferPx="400">
-  <ng-container  *cdkVirtualFor="let state of item$ | async">
-  <ng-template
-    *ngTemplateOutlet="template;context:{state:state}"
-  ></ng-template>
+<cdk-virtual-scroll-viewport [ngStyle]="option.style" id="scr" itemSize="itemHeight" maxBufferPx="400"
+                             minBufferPx="200">
+  <ng-container *cdkVirtualFor="let state of item$ | async">
+    <ng-template
+      *ngTemplateOutlet="template;context:{state:state}"
+    ></ng-template>
   </ng-container>
 </cdk-virtual-scroll-viewport>

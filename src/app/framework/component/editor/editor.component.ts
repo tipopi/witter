@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js';
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -8,12 +9,14 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js';
 })
 export class EditorComponent implements OnInit {
   // @Input()
-  deta="";
+  deta = "";
   public Editor = ClassicEditor;
   public config = {
     language: 'zh-cn'
   };
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

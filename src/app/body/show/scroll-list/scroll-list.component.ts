@@ -1,12 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {of} from 'rxjs';
 import {InfiniteScrollRunService} from "../../../framework/service/infinite-scroll-run.service";
 import {ListService} from "../list/list.service";
 import {Img} from "../../../model/img";
-import {map, delay, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {ScrollListService} from "./scroll-list.service";
 import {UserService} from "../../../framework/service/user.service";
-import {TagsService} from "../../tags/tags.service";
 import {DateService} from "../../date/date.service";
 import {TagMsgService} from "../../tags/tag-msg.service";
 import {ShowMsgService} from '../show-msg.service';
@@ -28,25 +26,6 @@ export class ScrollListComponent implements OnInit {
   tag: string = "all";
   isPi: boolean = false;
   token;
-  handle = page => {
-    return this.service.findAll(this.tag, this.date, page).pipe(
-      map((item: any) => {
-        if (item.meta.code === 1) {
-          return item.data;
-        }
-        return [];
-      }))
-  }
-  option = {
-    handle: this.handle,
-    itemNumber: 8,
-    itemHeight: 100,
-    style: {
-      height: '800px',
-      width: '1200px'
-    },
-    pageInit: 2
-  }
 
   constructor(private scrollService: InfiniteScrollRunService,
               private service: ScrollListService,
@@ -71,6 +50,27 @@ export class ScrollListComponent implements OnInit {
       this.scrollService.refreshData(this.handle);
     });
     this.userService.userObs$.subscribe(status => this.isPi = status == 1 ? true : false);
+  }
+
+  handle = page => {
+    return this.service.findAll(this.tag, this.date, page).pipe(
+      map((item: any) => {
+        if (item.meta.code === 1) {
+          return item.data;
+        }
+        return [];
+      }))
+  }
+
+  option = {
+    handle: this.handle,
+    itemNumber: 8,
+    itemHeight: 100,
+    style: {
+      height: '800px',
+      width: '1200px'
+    },
+    pageInit: 2
   }
 
   setDate() {

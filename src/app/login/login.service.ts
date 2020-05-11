@@ -1,25 +1,28 @@
-import { Injectable } from '@angular/core';
-import {  HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Url} from '../model/url';
+import {HttpUtilService} from "../framework/service/http-util.service";
 
 @Injectable()
 export class LoginService {
-  private add_url = Url.url + '/addSession';
-  private delete_url = Url.url + '/deleteSession';
+  private add_url ='/addSession';
+  private delete_url ='/deleteSession';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpUtilService) {
+  }
 
 
-  login(username: string, password: string){
+  login(username: string, password: string) {
     const user = {
       username,
       password
     };
 
-    return this.http.post(this.add_url,user,{ withCredentials: true});
-    }
-    logout(){
-     return this.http.get(this.delete_url,{ withCredentials: true});
-    }
+    return this.http.post(this.add_url, user);
   }
+
+  logout() {
+    return this.http.get(this.delete_url);
+  }
+}
 

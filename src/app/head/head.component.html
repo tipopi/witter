@@ -1,11 +1,12 @@
 <nav class="navbar navbar-expand-lg bg-dark">
   <div class="container">
     <div class="navbar-translate">
-      <a  href="/panel">
-        <i nz-icon style="color: hotpink;"><img src="assets/img/logo.png"  height="100%" width="100px"/></i>
+      <a href="/panel">
+        <i nz-icon style="color: hotpink;"><img height="100%" src="assets/img/logo.png" width="100px"/></i>
       </a>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <button aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-toggle="collapse"
+              type="button">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon"></span>
         <span class="navbar-toggler-icon"></span>
@@ -13,15 +14,16 @@
       </button>
     </div>
     <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto" [ngSwitch]="isLogin">
+      <ul [ngSwitch]="isLogin" class="navbar-nav ml-auto">
         <li *ngSwitchCase="true" class="active">
-          <a  nzType="primary"
-              nz-popover
-              nzPopoverTitle="记不住密码就别点了"
-              [(nzVisible)]="visible"
-              nzPopoverTrigger="click"
-              [nzPopoverContent]="contentTemplate" class="nav-link">
-            <nz-avatar nzIcon="user" [nzSrc]="img"></nz-avatar>Boss_pi
+          <a [(nzVisible)]="visible"
+             [nzPopoverContent]="contentTemplate"
+             class="nav-link"
+             nz-popover
+             nzPopoverTitle="痞老板"
+             nzPopoverTrigger="click" nzType="primary">
+            <nz-avatar [nzSrc]="img" nzIcon="user"></nz-avatar>
+            Boss_pi
           </a>
           <ng-template #contentTemplate>
             <a (click)="logout();">注销</a>

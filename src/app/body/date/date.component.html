@@ -1,9 +1,8 @@
-
-  <nz-date-picker
-    nzShowTime
-    nzFormat="yyyy-MM-dd HH:mm:ss"
-    nzPlaceHolder="Select Time"
-    (ngModelChange)="onChange($event)"
-    (nzOnOk)="onChange($event)"
-  ></nz-date-picker>
+<nz-date-picker
+  (ngModelChange)="onChange($event)"
+  (nzOnOk)="onChange($event)"
+  nzFormat="yyyy-MM-dd HH:mm:ss"
+  nzPlaceHolder="Select Time"
+  nzShowTime
+></nz-date-picker>
 

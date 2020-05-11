@@ -1,15 +1,15 @@
-<a (click)="showModal()"> <i nz-icon nzType="user" nzTheme="outline"></i></a>
-<nz-modal [nzWidth]="400" [(nzVisible)]="isVisible" nzTitle="管理员登陆"  (nzOnCancel)="handleCancel()">
+<a (click)="showModal()"> <i nz-icon nzTheme="outline" nzType="user"></i></a>
+<nz-modal (nzOnCancel)="handleCancel()" [(nzVisible)]="isVisible" [nzWidth]="400" nzTitle="管理员登陆">
   <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
     <div *ngIf="erro" class="alert alert-danger">
       <div class="container">
         <div class="alert-icon">
-          <i nz-icon nzType="bug" nzTheme="outline"></i>
+          <i nz-icon nzTheme="outline" nzType="bug"></i>
         </div>
-        <button (click)="erro=false" type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true"><i nz-icon nzType="close" nzTheme="outline"></i></span>
+        <button (click)="erro=false" aria-label="Close" class="close" data-dismiss="alert" type="button">
+          <span aria-hidden="true"><i nz-icon nzTheme="outline" nzType="close"></i></span>
         </button>
-              {{msg}}
+        {{msg}}
       </div>
     </div>
 
@@ -17,34 +17,34 @@
       <div class="input-group col-lg-10 col-sm-4">
         <div class="input-group-prepend">
           <span class="input-group-text">
-           <i nz-icon nzType="book" nzTheme="outline"></i>
+           <i nz-icon nzTheme="outline" nzType="book"></i>
           </span>
         </div>
-        <input class="form-control"
-               type="text"
-               name="username"
+        <input #usernameRef="ngModel"
                [(ngModel)]="username"
-               #usernameRef="ngModel"
-               required
+               class="form-control"
                minlength="3"
+               name="username"
+               required
+               type="text"
         />
       </div>
       <div class="input-group col-lg-10 col-sm-4">
         <div class="input-group-prepend">
           <span class="input-group-text">
-            <i nz-icon nzType="lock" nzTheme="outline"></i>
+            <i nz-icon nzTheme="outline" nzType="lock"></i>
           </span>
         </div>
-        <input class="form-control"
-               type="password"
-               name="password"
+        <input #passwordRef="ngModel"
                [(ngModel)]="password"
-               #passwordRef="ngModel"
+               class="form-control"
+               name="password"
                required
+               type="password"
         />
       </div>
-        <div style="text-align:center;">
-        <button class="btn btn-danger " type="submit" >登录</button>
+      <div style="text-align:center;">
+        <button class="btn btn-danger " type="submit">登录</button>
       </div>
 
     </fieldset>

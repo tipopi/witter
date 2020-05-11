@@ -2,7 +2,10 @@
   <div>
     <p>
       <app-date></app-date>
-      <button  class="btn btn-rose btn-round btn-sm" *ngIf="isPi" (click)="showBlogEditor()"><i nz-icon nzType="highlight" nzTheme="outline"></i>写文章</button>
+      <button (click)="showBlogEditor()" *ngIf="isPi" class="btn btn-rose btn-round btn-sm"><i nz-icon
+                                                                                               nzTheme="outline"
+                                                                                               nzType="highlight"></i>写文章
+      </button>
     </p>
     <app-blog-list></app-blog-list>
   </div>

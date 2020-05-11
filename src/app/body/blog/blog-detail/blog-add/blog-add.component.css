@@ -1,8 +1,9 @@
-.ant-btn-tag-btn{
+.ant-btn-tag-btn {
   background-color: #c27400;
   color: white;
   margin-right: 10px;
 }
+
 .footer {
   position: sticky;
   bottom: 0;
@@ -17,7 +18,8 @@
 :host ::ng-deep .ck-editor__editable_inline {
   min-height: 500px;
 }
-.ant-btn-add-btn{
+
+.ant-btn-add-btn {
   background-color: #b8124a;
   color: white;
   margin-right: 10px;

@@ -1,21 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagMsgService {
-  private tagSource=new Subject();
-  private freshSource=new Subject();
+  private tagSource = new Subject();
+  tagObs$ = this.tagSource.asObservable();
+  private freshSource = new Subject();
+  freshObs$ = this.freshSource.asObservable();
 
-  tagObs$=this.tagSource.asObservable();
-  freshObs$=this.freshSource.asObservable();
-  constructor() { }
+  constructor() {
+  }
 
-  freshTags(){
+  freshTags() {
     this.freshSource.next();
   }
-  setTag(tag){
+
+  setTag(tag) {
     this.tagSource.next(tag);
   }
 }

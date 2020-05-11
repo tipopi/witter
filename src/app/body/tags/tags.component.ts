@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TagsService} from "./tags.service";
 import {Tag} from "../../model/tag";
 import {UserService} from "../../framework/service/user.service";
@@ -30,17 +30,17 @@ export class TagsComponent implements OnInit {
 
   fresh() {
     this.service.findCount(this.type).pipe(delay(0)).subscribe((da: any) => {
-        this.tags = da.data;
+      this.tags = da.data;
     });
   }
 
   deleteTag(id) {
     this.service.delete(id).subscribe((msg: any) => {
-        this.fresh();
-        if (this.checkTag == id || this.checkTag == 'all') {
-          this.outTag('all');
-          this.index = 0;
-        }
+      this.fresh();
+      if (this.checkTag == id || this.checkTag == 'all') {
+        this.outTag('all');
+        this.index = 0;
+      }
     });
   }
 

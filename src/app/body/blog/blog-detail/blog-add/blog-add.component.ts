@@ -9,6 +9,7 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js';
 import {NzMessageService} from "ng-zorro-antd";
 import {UserService} from 'src/app/framework/service/user.service';
 import {mergeMap} from "rxjs/operators";
+import { DomSanitizer } from '@angular/platform-browser';
 
 export class FileUploadAdapter {
   service: BlogAddService;
@@ -78,11 +79,15 @@ export class BlogAddComponent implements OnInit {
               private service: BlogAddService,
               private nzMessage: NzMessageService,
               private userService: UserService
+
   ) {
     this.config = {
       language: 'zh-cn',
       service,
-      extraPlugins: [CustomUploadAdapterPlugin]
+      extraPlugins: [CustomUploadAdapterPlugin],
+      // mediaEmbed: {
+      //   previewsInData: true
+      // }
     };
     this.userService.tokenObs$.subscribe(token => this.token = token);
     this.service.imgObs$.subscribe(key => {

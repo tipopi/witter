@@ -1,11 +1,13 @@
-.card{
+.card {
   width: 400px;
   height: 640px;
 }
-.change{
+
+.change {
   margin-left: 10px;
   margin-right: 10px;
 }
+
 /*.parent {*/
 /*  padding: 5% 0;*/
 /*  height: 640px;*/

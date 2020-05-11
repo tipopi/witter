@@ -1,34 +1,35 @@
 <div>
   <p>标签</p>
-  <nz-tabset class="content" nzTabPosition="right" [nzType]="'line'" [(nzSelectedIndex)]="index">
-    <nz-tab  (nzClick)="outTag('all')" nzTitle="all"></nz-tab>
-    <nz-tab  (nzClick)="outTag(tag.tagId)" *ngFor="let tag of tags" [nzTitle]="tagLabel">
+  <nz-tabset [(nzSelectedIndex)]="index" [nzType]="'line'" class="content" nzTabPosition="right">
+    <nz-tab (nzClick)="outTag('all')" nzTitle="all"></nz-tab>
+    <nz-tab (nzClick)="outTag(tag.tagId)" *ngFor="let tag of tags" [nzTitle]="tagLabel">
       <ng-template #tagLabel>
-        <span>{{tag.name}} <button *ngIf="!isPi" nzSize="small"
-                                   nzType="primary"
-                                   nz-button nzShape="circle">{{tag.tagCount}}</button>
-        <button *ngIf="isPi" nzSize="small"
-                nzType="danger"
-                nz-popconfirm
+        <span>{{tag.name}}
+          <button *ngIf="!isPi" nz-button
+                  nzShape="circle"
+                  nzSize="small" nzType="primary">{{tag.tagCount}}</button>
+        <button (nzOnConfirm)="deleteTag(tag.tagId)" *ngIf="isPi"
                 [nzPopconfirmTrigger]="'hover'"
+                nz-button
+                nz-popconfirm
                 nzPopconfirmTitle="确定删除此标签吗?"
-                (nzOnConfirm)="deleteTag(tag.tagId)"
-                nz-button nzShape="circle">{{tag.tagCount}}</button>
+                nzShape="circle"
+                nzSize="small" nzType="danger">{{tag.tagCount}}</button>
         </span>
       </ng-template>
     </nz-tab>
   </nz-tabset>
 
-<!--  <button  nz-button nzSize="large" nzType="danger" (click)="outTag('all')">all</button>-->
-<!--  <button nz-button nz-popover-->
-<!--          [nzPopoverContent]="isPi?deleteTemplate:null"-->
-<!--          nzPopoverPlacement="right"-->
-<!--          nzSize="small" nzType="primary" (click)="outTag(tag.tagId)" *ngFor="let tag of tags">-->
-<!--    {{tag.name}} {{tag.tagCount}}-->
-<!--    <ng-template  #deleteTemplate>-->
-<!--      <a (click)="deleteTag(tag.tagId)">删除标签</a>-->
-<!--    </ng-template>-->
-<!--  </button>-->
+  <!--  <button  nz-button nzSize="large" nzType="danger" (click)="outTag('all')">all</button>-->
+  <!--  <button nz-button nz-popover-->
+  <!--          [nzPopoverContent]="isPi?deleteTemplate:null"-->
+  <!--          nzPopoverPlacement="right"-->
+  <!--          nzSize="small" nzType="primary" (click)="outTag(tag.tagId)" *ngFor="let tag of tags">-->
+  <!--    {{tag.name}} {{tag.tagCount}}-->
+  <!--    <ng-template  #deleteTemplate>-->
+  <!--      <a (click)="deleteTag(tag.tagId)">删除标签</a>-->
+  <!--    </ng-template>-->
+  <!--  </button>-->
 
 
 </div>
